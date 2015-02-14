@@ -1,6 +1,7 @@
 package board;
+import java.util.*;
 
-public class BoardCell {
+public class BoardCell{
 	
 	private int row, column;
 

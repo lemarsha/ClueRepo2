@@ -7,15 +7,17 @@ public class IntBoard {
 	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
 	private Set<BoardCell> visited;
+
 	
-	public IntBoard(int rows, int columns) {
+	
+	IntBoard(int rows, int columns) {
 		super();
 		this.rows = rows;
 		this.columns = columns;
 	}
 
 	public LinkedList<BoardCell> getAdjList(BoardCell bc) {
-		
+		/*
 		LinkedList<BoardCell> adjacencies = new LinkedList<BoardCell>();
 		BoardCell b;
 		if (bc.getColumn()-1>=0) {
@@ -30,10 +32,13 @@ public class IntBoard {
 		if (bc.getRow()+1>=0) {
 			adjacencies.add(b = new BoardCell(bc.getRow()+1, bc.getColumn()));
 		}
-		return adjacencies;
+		*/
+		//return adjacencies;
+		return null;
 	}
 	
 	public void calcAdjacencies(int rows,int columns) {
+		/*
 		adjacent_cells = new HashMap<BoardCell,LinkedList<BoardCell>>();
 		for (int i = 0; i<rows; ++i) {
 			for (int j = 0; j<columns; ++j) {
@@ -43,9 +48,11 @@ public class IntBoard {
 				
 			}
 		}
+		*/
 	}
 	
 	public void calcTargets(BoardCell thisCell, int numSteps){
+/*		
 		LinkedList<BoardCell> current_adj_cells = new LinkedList<BoardCell>();
 		if (numSteps == 1) {
 			current_adj_cells = adjacent_cells.get(thisCell);
@@ -60,10 +67,13 @@ public class IntBoard {
 		for (BoardCell b: current_adj_cells) {
 			calcTargets(b,numSteps-1);
 		}
+*/
+		
 	}
 	
 	public Set<BoardCell> getTargets() {
-		return target_cells;
+		//return target_cells;
+		return null;
 	}
 	
 	public BoardCell getCell(int row, int col) {
