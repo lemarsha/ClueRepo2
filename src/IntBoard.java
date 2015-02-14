@@ -5,6 +5,7 @@ public class IntBoard {
 	private int rows,columns;
 	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
+	private Set<BoardCell> visited;
 	
 	public IntBoard(int rows, int columns) {
 		super();
@@ -44,15 +45,20 @@ public class IntBoard {
 	}
 	
 	public void calcTargets(BoardCell thisCell, int numSteps){
-		Set<BoardCell> visited = new HashSet<BoardCell>();
-		
+		LinkedList<BoardCell> current_adj_cells = new LinkedList<BoardCell>();
 		if (numSteps == 1) {
-			for (BoardCell b: adjacent_cells) {
-				
+			current_adj_cells = adjacent_cells.get(thisCell);
+			for (BoardCell b: current_adj_cells) {
+				if (!visited.contains(b)) {
+					target_cells.add(b);
+				}
 			}
+			return;
 		}
-		
-		
+		current_adj_cells = adjacent_cells.get(thisCell);
+		for (BoardCell b: current_adj_cells) {
+			calcTargets(b,numSteps-1);
+		}
 	}
 
 }
