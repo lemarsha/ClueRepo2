@@ -60,5 +60,9 @@ public class IntBoard {
 			calcTargets(b,numSteps-1);
 		}
 	}
+	
+	public Set<BoardCell> getTargets() {
+		return target_cells;
+	}
 
 }
