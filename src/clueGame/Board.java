@@ -8,11 +8,15 @@ public class Board {
 	
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-	BoardCell[][] grid;
+	RoomCell[][] grid;
 	Set<BoardCell> targets;
 	
 	public Board() {
-	
+		for (int i = 0; i<numRows; ++i) {
+			for (int j = 0; j<numColumns; ++j) {
+				grid[i][j] = new RoomCell(i,j);
+			}
+		}
 	}
 	
 	public void loadBoardConfig(Map<Character,String> room) {
@@ -31,6 +35,11 @@ public class Board {
 
 	public int getNumColumns() {
 		return numColumns;
+	}
+	
+	public RoomCell getRoomCellAt(int row, int col) {
+		RoomCell rm = new RoomCell(row, col);
+		return rm;
 	}
 	
 

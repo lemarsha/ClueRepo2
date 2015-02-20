@@ -10,7 +10,7 @@ public class ClueGame {
 		
 	}
 	
-	public void loadConfigFiles() {
+	public void loadConfigFiles(){
 		
 	}
 	

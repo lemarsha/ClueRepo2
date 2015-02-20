@@ -15,6 +15,7 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.ClueGame;
+import clueGame.DoorDirection;
 import clueGame.RoomCell;
 
 
@@ -53,6 +54,43 @@ public class TestsPart1 {
 	public void testBoardConfig() {
 		assertEquals(NUM_ROWS,board.getNumRows());
 		assertEquals(NUM_COLUMNS, board.getNumColumns());
+	}
+	
+	@Test
+	public void TestDoorDirections() {
+		RoomCell room = board.getRoomCellAt(31,9);
+		assertTrue(room.isDoorway());
+		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
+		room = board.getRoomCellAt(28,29);
+		assertTrue(room.isDoorway());
+		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
+		room = board.getRoomCellAt(18,31);
+		assertTrue(room.isDoorway());
+		assertEquals(DoorDirection.UP, room.getDoorDirection());
+		room = board.getRoomCellAt(14,31);
+		assertTrue(room.isDoorway());
+		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
+	}
+	
+	@Test
+	public void testRoomInitials() {
+		assertEquals('C',board.getRoomCellAt(0,30));
+		assertEquals('K',board.getRoomCellAt(1,1));
+		assertEquals('B',board.getRoomCellAt(1,15));
+		assertEquals('R',board.getRoomCellAt(12,30));
+		assertEquals('L',board.getRoomCellAt(18,30));
+		assertEquals('S',board.getRoomCellAt(30,22));
+		assertEquals('D',board.getRoomCellAt(29,5));
+		assertEquals('H',board.getRoomCellAt(29,14));
+		assertEquals('W',board.getRoomCellAt(14,2));
+		assertEquals('X',board.getRoomCellAt(14,14));
+		assertEquals('P',board.getRoomCellAt(9,31));
+		
+	}
+	
+	@Test (expected = BadConfigFormatException.class)
+	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
+		
 	}
 	
 
