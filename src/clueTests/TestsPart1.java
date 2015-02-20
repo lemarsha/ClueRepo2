@@ -22,7 +22,7 @@ import clueGame.RoomCell;
 public class TestsPart1 {
 
 	private static Board board;
-	public static final int NUM_ROOMS = 9;
+	public static final int NUM_ROOMS = 11;
 	public static final int NUM_ROWS = 32;
 	public static final int NUM_COLUMNS = 32;
 	
@@ -58,8 +58,10 @@ public class TestsPart1 {
 	
 	@Test
 	public void TestDoorDirections() {
+		
 		RoomCell room = board.getRoomCellAt(31,9);
 		assertTrue(room.isDoorway());
+		System.out.println(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
 		room = board.getRoomCellAt(28,29);
 		assertTrue(room.isDoorway());
@@ -74,7 +76,9 @@ public class TestsPart1 {
 	
 	@Test
 	public void testRoomInitials() {
-		assertEquals('C',board.getRoomCellAt(0,30));
+		RoomCell room = board.getRoomCellAt(31, 9);
+		//assertEquals('C', room.getSymbol());
+		assertEquals('C', board.getRoomCellAt(0,30));
 		assertEquals('K',board.getRoomCellAt(1,1));
 		assertEquals('B',board.getRoomCellAt(1,15));
 		assertEquals('R',board.getRoomCellAt(12,30));
