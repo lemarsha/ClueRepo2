@@ -20,4 +20,60 @@ public class TestsPart2 {
 		board = game.getBoard();
 		board.calcAdjacencies();
 	}
+	
+	@Test
+	public void testAdjacenciesInsideRooms() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyRoomExit() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyDoorways() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyWalkways() {
+		
+	}
+	
+	public void testTargetsOneStep() {
+		
+	}
+	
+	@Test
+	public void testTargetsTwoSteps() {
+		
+	}
+	
+	@Test
+	public void testTargetsFourSteps() {
+		
+	}
+	
+	@Test
+	public void testTargetsSixSteps() {
+		
+	}
+	
+	@Test
+	public void testTargetsIntoRoom() {
+		
+	}
+	
+	@Test
+	public void testTargetsIntoRoomsShortcut() {
+		
+	}
+	
+	@Test
+	public void testRoomExit() {
+		
+	}
+
+	
 }

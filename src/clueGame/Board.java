@@ -12,14 +12,17 @@ public class Board {
 	BoardCell[][] grid;
 	Set<BoardCell> targets;
 	private String legendFile, layoutFile;
+	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
 	private Set<BoardCell> visited ;
 
+	//constructor
 	public Board(String layoutFile, String legendFile) {
 		this.legendFile = legendFile;
 		this.layoutFile = layoutFile;
 	}
 
+	//generates the map of the legend, tests for correct formats, and creates a grid of all the board cells
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
 		testBoardConfig();
 		testLegend();
@@ -51,12 +54,13 @@ public class Board {
 					}
 				} else {
 					RoomCell r = new RoomCell(i,j,legend[j]);
-				    grid[i][j] = r;
+					grid[i][j] = r;
 				}
 			}
 		}
 	}
 
+	//tests the format of the board file
 	public void testBoardConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader reader = null;
 		Scanner in = null;
@@ -83,6 +87,7 @@ public class Board {
 		in.close();
 		//reader.close();
 	}
+
 	//this method reads the layout file and creates a map of rooms
 	public Map<Character, String> getRooms() {
 		rooms = new HashMap<Character,String>();
@@ -96,10 +101,10 @@ public class Board {
 			System.out.println(e.getLocalizedMessage());
 		}
 		while (in.hasNextLine()) {
-				String line = in.nextLine();
-				String[] legend = new String[2];
-				legend = line.split(", ");
-				rooms.put(legend[0].charAt(0),legend[1]);
+			String line = in.nextLine();
+			String[] legend = new String[2];
+			legend = line.split(", ");
+			rooms.put(legend[0].charAt(0),legend[1]);
 		}
 		in.close();
 		try {
@@ -110,7 +115,8 @@ public class Board {
 		}
 		return rooms;
 	}
-	
+
+	//tests the format of the legend file
 	public void testLegend() throws BadConfigFormatException{
 		FileReader reader = null;
 		Scanner in = null;
@@ -132,14 +138,17 @@ public class Board {
 		in.close();
 	}
 
+	//gets number of rows
 	public int getNumRows() {
 		return numRows;
 	}
 
+	//gets number of columns
 	public int getNumColumns() {
 		return numColumns;
 	}
 
+	//gets the room cell at the specified grid location
 	public RoomCell getRoomCellAt(int row, int col) {
 		BoardCell cell = grid[row][col];
 		if (cell.isRoom()) {
@@ -147,27 +156,79 @@ public class Board {
 		}
 		return null;
 	}
-	
+
+	//returns the board cell at the specified grid location
 	public BoardCell getCellAt(int row, int col) {
 		return grid[row][col];
 	}
 
-	public static void main(String[] args) {
-		Board b = new Board("ClueLayout.csv","ClueLegend.txt");
-		try {
-			b.loadBoardConfig();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	//creates a list of adjacent cells
+	public LinkedList<BoardCell> getAdjList(int row, int col) {
+		LinkedList<BoardCell> adjacencies = new LinkedList<BoardCell>();
+		if (col-1>=0) {
+			if (grid[row][col].getInitial() == grid[row][col-1].getInitial()) {
+				adjacencies.add(grid[row][col-1]);
+			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection() ==DoorDirection.LEFT) {
+				adjacencies.add(grid[row][col-1]);
+			} else if (grid[row][col].isDoorway()) {
+				adjacencies.add(grid[row][col-1]);
+			} else {
+				
+			}
+			
 		}
-		if (b.getRooms().containsKey('Z')) {
-			System.out.println("contains z");
-		}else {
-			System.out.println("hidlajfd");
+		if (col+1<numColumns) {
+			adjacencies.add(grid[row][col+1]);
+		}
+		if (row-1>=0) {
+			adjacencies.add(grid[row-1][col]);
+		}
+		if (row+1<numRows) {
+			adjacencies.add(grid[row+1][col]);
+		}
+		return adjacencies;
+	}
+
+	//creates hash map of all the adjacent cells associated with a board cell
+	public void calcAdjacencies() {
+		adjacent_cells = new HashMap<BoardCell,LinkedList<BoardCell>>();
+		for (int i = 0; i<numRows; ++i) {
+			for (int j = 0; j<numColumns; ++j) {
+				LinkedList<BoardCell> adj = new LinkedList<BoardCell>();
+				adj=getAdjList(i,j);
+				adjacent_cells.put(grid[i][j], adj);
+			}
+		}
+	}
+
+	public void calcTargets(int row, int col, int numSteps){
+		visited = new HashSet<BoardCell>();
+		target_cells = new HashSet<BoardCell>();
+		visited.add(grid[row][col]);
+		findAllTargets(grid[row][col], numSteps);
+	}
+
+	public void findAllTargets(BoardCell thisCell, int numSteps) {
+		LinkedList<BoardCell> current_adj_cells = new LinkedList<BoardCell>();
+		current_adj_cells = adjacent_cells.get(grid[thisCell.getRow()][thisCell.getColumn()]);
+		for (BoardCell b: current_adj_cells){
+			if(!visited.contains(b)){
+				visited.add(b);
+				if( numSteps == 1){
+					target_cells.add(b);
+				}else {
+					findAllTargets(b, numSteps-1);
+				}
+				visited.remove(b);
+			}
 		}
 	}
 	
+	public Set<BoardCell> getTargets(){
+		return target_cells;
+	}
 	
-
-
+	
+	
 }
+

@@ -16,9 +16,7 @@ public class RoomCell extends BoardCell{
 				isDoorway = true;
 				doorDir = Symbol.charAt(1);
 			}
-			
 		}
-		
 		this.row = row;
 		this.column = column;
 		symbol = Symbol.charAt(0);
@@ -54,6 +52,23 @@ public class RoomCell extends BoardCell{
 	
 	public Character getInitial() {
 		return symbol;
+	}
+	
+	public int getRow() {
+		return super.getRow();
+	}
+
+	public int getColumn() {
+		return super.getColumn();
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
 	}
 	
 	

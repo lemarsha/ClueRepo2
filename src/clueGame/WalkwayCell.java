@@ -38,5 +38,22 @@ public class WalkwayCell extends BoardCell{
 	public Character getInitial() {
 		return symbol;
 	}
+	
+	public int getRow() {
+		return super.getRow();
+	}
+
+	public int getColumn() {
+		return super.getColumn();
+	}
+	
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
 
 }
