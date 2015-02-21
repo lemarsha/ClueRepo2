@@ -168,14 +168,11 @@ public class Board {
 		if (col-1>=0) {
 			if (grid[row][col].getInitial() == grid[row][col-1].getInitial()) {
 				adjacencies.add(grid[row][col-1]);
-			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection() ==DoorDirection.LEFT) {
+			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection() ==DoorDirection.RIGHT) {
 				adjacencies.add(grid[row][col-1]);
-			} else if (grid[row][col].isDoorway()) {
+			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.LEFT) {
 				adjacencies.add(grid[row][col-1]);
-			} else {
-				
-			}
-			
+			} 
 		}
 		if (col+1<numColumns) {
 			adjacencies.add(grid[row][col+1]);
