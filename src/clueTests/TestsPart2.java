@@ -25,48 +25,52 @@ public class TestsPart2 {
 	public void testAdjacenciesInsideRooms() {
 		//test a corner
 		LinkedList<BoardCell> testList = board.getAdjList(0, 0);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(2, testList.size());
 		// Test one that has walkway underneath
 		testList = board.getAdjList(8,27);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(3, testList.size());
 		// Test one that has walkway above
 		testList = board.getAdjList(10,1);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(3, testList.size());
 		// Test one that is in middle of room
 		testList = board.getAdjList(3,3);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(4, testList.size());
 		// Test one beside a door
 		testList = board.getAdjList(6,22);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(4, testList.size());
 		// Test one in a corner of room
 		testList = board.getAdjList(11,22);
-		Assert.assertEquals(0, testList.size());
+		Assert.assertEquals(2, testList.size());
 		//test a door
 		testList = board.getAdjList(14,31);
-		Assert.assertEquals(0,testList.size());
+		Assert.assertEquals(3,testList.size());
 		//test another door
 		testList = board.getAdjList(23,6);
-		Assert.assertEquals(0,testList.size());
+		Assert.assertEquals(4,testList.size());
 	}
 	
 	@Test
 	public void testAdjacencyRoomExit() {
 		// TEST DOORWAY RIGHT 
 		LinkedList<BoardCell> testList = board.getAdjList(12, 6);
-		Assert.assertEquals(1, testList.size());
+		Assert.assertEquals(4, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(12, 7)));
 		// TEST DOORWAY LEFT 
 		testList = board.getAdjList(27, 20);
-		Assert.assertEquals(1, testList.size());
+		Assert.assertEquals(4, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(27, 19)));
 		//TEST DOORWAY DOWN
 		testList = board.getAdjList(29, 28);
-		Assert.assertEquals(1, testList.size());
+		Assert.assertEquals(4, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(29, 27)));
 		//TEST DOORWAY UP
 		testList = board.getAdjList(18, 31);
-		Assert.assertEquals(1, testList.size());
+		Assert.assertEquals(3, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(17, 31)));
+		//TEST DOORWAY CORNER
+		testList = board.getAdjList(4,19);
+		Assert.assertEquals(3,testList.size());
+		Assert.assertTrue(testList.contains(board.getCellAt(4,20)));
 	}
 	
 	@Test
@@ -118,7 +122,7 @@ public class TestsPart2 {
 
 		// Test surrounded by 4 walkways
 		testList = board.getAdjList(20,5);
-		Assert.assertTrue(testList.contains(board.getCellAt(20, 3)));
+		Assert.assertTrue(testList.contains(board.getCellAt(20, 6)));
 		Assert.assertTrue(testList.contains(board.getCellAt(20, 4)));
 		Assert.assertTrue(testList.contains(board.getCellAt(19, 5)));
 		Assert.assertTrue(testList.contains(board.getCellAt(21, 5)));
@@ -191,7 +195,7 @@ public class TestsPart2 {
 		//room next to walkway
 		board.calcTargets(19, 31, 2);
 		Set<BoardCell> targets= board.getTargets();
-		Assert.assertEquals(4, targets.size());
+		Assert.assertEquals(5, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(21, 31)));
 		Assert.assertTrue(targets.contains(board.getCellAt(20, 30)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(19, 29)));
@@ -201,12 +205,12 @@ public class TestsPart2 {
 		//walkway next to room
 		board.calcTargets(18, 23, 2);
 		targets= board.getTargets();
-		Assert.assertEquals(3, targets.size());
+		Assert.assertEquals(5, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(18, 25)));
 		Assert.assertTrue(targets.contains(board.getCellAt(17, 24)));	
-		Assert.assertTrue(targets.contains(board.getCellAt(16, 25)));
-		Assert.assertTrue(targets.contains(board.getCellAt(17, 23)));	
-		Assert.assertTrue(targets.contains(board.getCellAt(19, 22)));	
+		Assert.assertTrue(targets.contains(board.getCellAt(16, 23)));
+		Assert.assertTrue(targets.contains(board.getCellAt(17, 22)));
+		Assert.assertTrue(targets.contains(board.getCellAt(18, 21)));	
 	}
 
 	

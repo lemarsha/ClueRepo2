@@ -168,20 +168,38 @@ public class Board {
 		if (col-1>=0) {
 			if (grid[row][col].getInitial() == grid[row][col-1].getInitial()) {
 				adjacencies.add(grid[row][col-1]);
-			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection() ==DoorDirection.RIGHT) {
+			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection()==DoorDirection.RIGHT) {
 				adjacencies.add(grid[row][col-1]);
 			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.LEFT) {
 				adjacencies.add(grid[row][col-1]);
 			} 
 		}
 		if (col+1<numColumns) {
-			adjacencies.add(grid[row][col+1]);
+			if (grid[row][col].getInitial() == grid[row][col+1].getInitial()) {
+				adjacencies.add(grid[row][col+1]);
+			} else if (grid[row][col+1].isDoorway()&&grid[row][col+1].getDoorDirection() ==DoorDirection.LEFT) {
+				adjacencies.add(grid[row][col+1]);
+			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.RIGHT) {
+				adjacencies.add(grid[row][col+1]);
+			}
 		}
 		if (row-1>=0) {
-			adjacencies.add(grid[row-1][col]);
+			if (grid[row][col].getInitial() == grid[row-1][col].getInitial()) {
+				adjacencies.add(grid[row-1][col]);
+			} else if (grid[row-1][col].isDoorway()&&grid[row-1][col].getDoorDirection() ==DoorDirection.DOWN) {
+				adjacencies.add(grid[row-1][col]);
+			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.UP) {
+				adjacencies.add(grid[row-1][col]);
+			}
 		}
 		if (row+1<numRows) {
-			adjacencies.add(grid[row+1][col]);
+			if (grid[row][col].getInitial() == grid[row+1][col].getInitial()) {
+				adjacencies.add(grid[row+1][col]);
+			} else if (grid[row+1][col].isDoorway()&&grid[row+1][col].getDoorDirection() ==DoorDirection.UP) {
+				adjacencies.add(grid[row+1][col]);
+			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.DOWN) {
+				adjacencies.add(grid[row+1][col]);
+			}
 		}
 		return adjacencies;
 	}
