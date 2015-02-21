@@ -43,7 +43,6 @@ public class Board {
 					grid[i][j] = w;
 				} else {
 					RoomCell r = new RoomCell(i,j,legend[j]);
-					System.out.println(legend[j]);
 					grid[i][j] = r;
 				}
 			}
@@ -122,10 +121,7 @@ public class Board {
 
 	public RoomCell getRoomCellAt(int row, int col) {
 		BoardCell cell = grid[row][col];
-		System.out.println(cell.isRoom());
 		if (cell.isRoom()) {
-			RoomCell x = (RoomCell) cell;
-			System.out.println(x.getSymbol());
 			return (RoomCell) cell;
 		}
 		return null;
@@ -140,7 +136,7 @@ public class Board {
 			e.printStackTrace();
 		}
 		RoomCell room = b.getRoomCellAt(31,9);
-		System.out.println(room);
+		
 	}
 	
 	

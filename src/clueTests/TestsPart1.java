@@ -61,9 +61,8 @@ public class TestsPart1 {
 		
 		RoomCell room = board.getRoomCellAt(31,9);
 		assertTrue(room.isDoorway());
-		System.out.println(room.isDoorway());
 		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
-		room = board.getRoomCellAt(28,29);
+		room = board.getRoomCellAt(29,28);
 		assertTrue(room.isDoorway());
 		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
 		room = board.getRoomCellAt(18,31);
@@ -77,18 +76,16 @@ public class TestsPart1 {
 	@Test
 	public void testRoomInitials() {
 		RoomCell room = board.getRoomCellAt(31, 9);
-		//assertEquals('C', room.getSymbol());
-		assertEquals('C', board.getRoomCellAt(0,30));
-		assertEquals('K',board.getRoomCellAt(1,1));
-		assertEquals('B',board.getRoomCellAt(1,15));
-		assertEquals('R',board.getRoomCellAt(12,30));
-		assertEquals('L',board.getRoomCellAt(18,30));
-		assertEquals('S',board.getRoomCellAt(30,22));
-		assertEquals('D',board.getRoomCellAt(29,5));
-		assertEquals('H',board.getRoomCellAt(29,14));
-		assertEquals('W',board.getRoomCellAt(14,2));
-		assertEquals('X',board.getRoomCellAt(14,14));
-		assertEquals('P',board.getRoomCellAt(9,31));
+		assertTrue(board.getRoomCellAt(0,30).getSymbol().equals('C'));
+		assertTrue(board.getRoomCellAt(1,1).getSymbol().equals('K'));
+		assertTrue(board.getRoomCellAt(1,15).getSymbol().equals('B'));
+		assertTrue(board.getRoomCellAt(12,30).getSymbol().equals('R'));
+		assertTrue(board.getRoomCellAt(18,30).getSymbol().equals('L'));
+		assertTrue(board.getRoomCellAt(30,22).getSymbol().equals('S'));
+		assertTrue(board.getRoomCellAt(29,5).getSymbol().equals('D'));
+		assertTrue(board.getRoomCellAt(29,14).getSymbol().equals('H'));
+		assertTrue(board.getRoomCellAt(14,2).getSymbol().equals('W'));
+		assertTrue(board.getRoomCellAt(14,14).getSymbol().equals('X'));
 		
 	}
 	

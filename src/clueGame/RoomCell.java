@@ -15,6 +15,7 @@ public class RoomCell extends BoardCell{
 			isDoorway = true;
 			doorDir = Symbol.charAt(1);
 		}
+		
 		this.row = row;
 		this.column = column;
 		symbol = Symbol.charAt(0);
@@ -53,19 +54,12 @@ public class RoomCell extends BoardCell{
 	}
 	
 	public static void main(String[] args ) {
-		RoomCell r = new RoomCell(1,1,"H");
+		RoomCell r = new RoomCell(1,2,"HR");
 		System.out.println(r.getSymbol());
+		System.out.println(r.getDoorDirection());
 		
-		String a = "A";
-		Character aa = a.charAt(0);
-		System.out.println(aa);
 		
-		String line = "A,B,C,D,E,F";
-		String[] legend = line.split(",");
-		String aaa = legend[0];
-		System.out.println(aaa);
-		Character aaaa = aaa.charAt(0);
-		System.out.println(aaaa);
+		
 	}
 	
 }

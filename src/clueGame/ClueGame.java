@@ -15,6 +15,7 @@ public class ClueGame {
 	}
 	
 	public void loadConfigFiles(){
+		b = new Board(layoutFile,legendFile);
 		try {
 			b.loadBoardConfig();
 		}catch (Exception e){
@@ -27,9 +28,16 @@ public class ClueGame {
 	}
 	
 	public Board getBoard() {
-		b = new Board(layoutFile, legendFile);
 		return b;
 		
+	}
+	
+	public static void main(String[] args) {
+		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt");
+		game.loadConfigFiles();
+		Board b = game.getBoard();
+		RoomCell r = b.getRoomCellAt(31, 10);
+		System.out.println(r.isDoorway());
 	}
 	
 
