@@ -7,8 +7,8 @@ import java.util.*;
 
 public class ClueGame {
 	
-	private static final String LAYOUTFILE = "ClueLayoutCR.csv";
-	private static final String LEGENDFILE = "ClueLegendCR.txt";
+	private static final String LAYOUTFILE = "ClueLayout.csv";
+	private static final String LEGENDFILE = "ClueLegend.txt";
 	
 	private Map<Character,String> rooms = null;
 	private String layoutFile, legendFile;
