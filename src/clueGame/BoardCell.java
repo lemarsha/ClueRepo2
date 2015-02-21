@@ -15,6 +15,7 @@ public abstract class BoardCell {
 		Character x = Symbol.charAt(0);
 		this.symbol = x;
 	}
+	
 	abstract public boolean isWalkway();
 	abstract public boolean isRoom();
 	abstract public boolean isDoorway();

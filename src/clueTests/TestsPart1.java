@@ -57,7 +57,7 @@ public class TestsPart1 {
 	}
 	
 	@Test
-	public void TestDoorDirections() {
+	public void testDoorDirections() {
 		
 		RoomCell room = board.getRoomCellAt(31,9);
 		assertTrue(room.isDoorway());
@@ -75,7 +75,6 @@ public class TestsPart1 {
 	
 	@Test
 	public void testRoomInitials() {
-		RoomCell room = board.getRoomCellAt(31, 9);
 		assertTrue(board.getRoomCellAt(0,30).getInitial().equals('C'));
 		assertTrue(board.getRoomCellAt(1,1).getInitial().equals('K'));
 		assertTrue(board.getRoomCellAt(1,15).getInitial().equals('B'));

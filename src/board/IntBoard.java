@@ -10,7 +10,7 @@ public class IntBoard {
 	private int rows,columns;
 	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
-	private Set<BoardCell> visited ;
+	private Set<BoardCell> visited;
 	private BoardCell[][] grid;
 	
 	

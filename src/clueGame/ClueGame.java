@@ -3,7 +3,12 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+
+
 public class ClueGame {
+	
+	private static final String LAYOUTFILE = "ClueLayout.csv";
+	private static final String LEGENDFILE = "ClueLegend.txt";
 	
 	private Map<Character,String> rooms = null;
 	private String layoutFile, legendFile;
@@ -13,6 +18,12 @@ public class ClueGame {
 		super();
 		this.layoutFile = layoutFile;
 		this.legendFile = legendFile;
+	}
+	
+	public ClueGame() {
+		super();
+		layoutFile = LAYOUTFILE;
+		legendFile = LEGENDFILE;
 	}
 	
 	public void loadConfigFiles() {

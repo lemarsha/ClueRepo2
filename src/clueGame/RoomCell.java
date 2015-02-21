@@ -12,8 +12,11 @@ public class RoomCell extends BoardCell{
 	public RoomCell(int row, int column, String Symbol) {
 		super(row,column,Symbol);
 		if (Symbol.length() == 2) {
-			isDoorway = true;
-			doorDir = Symbol.charAt(1);
+			if (Symbol.charAt(1)!='N') {
+				isDoorway = true;
+				doorDir = Symbol.charAt(1);
+			}
+			
 		}
 		
 		this.row = row;
@@ -53,13 +56,5 @@ public class RoomCell extends BoardCell{
 		return symbol;
 	}
 	
-	public static void main(String[] args ) {
-		RoomCell r = new RoomCell(1,2,"HR");
-		System.out.println(r.getInitial());
-		System.out.println(r.getDoorDirection());
-		
-		
-		
-	}
 	
 }

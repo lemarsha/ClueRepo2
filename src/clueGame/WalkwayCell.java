@@ -20,6 +20,7 @@ public class WalkwayCell extends BoardCell{
 	public boolean isWalkway() {
 		return true;
 	}
+	
 	@Override
 	public boolean isDoorway() {
 		return false;
@@ -37,6 +38,5 @@ public class WalkwayCell extends BoardCell{
 	public Character getInitial() {
 		return symbol;
 	}
-	
 
 }
