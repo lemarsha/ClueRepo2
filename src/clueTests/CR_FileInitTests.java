@@ -15,32 +15,25 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.ClueGame;
-import clueGame.DoorDirection;
 import clueGame.RoomCell;
 
 public class CR_FileInitTests {
-	// NOTE: I made these static because I only want to set it up one 
+	// I made this static because I only want to set it up one 
 	// time (using @BeforeClass), no need to do setup before each test
 	private static Board board;
-	private static ClueGame game;
 	public static final int NUM_ROOMS = 11;
 	public static final int NUM_ROWS = 22;
 	public static final int NUM_COLUMNS = 23;
 	
 	@BeforeClass
 	public static void setUp() {
-		// Create a new ClueGame using the valid files
-		game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
-		// Load BOTH config files. The game loadConfigFiles includes a try/catch
-		// so no exception should be seen here. 
+		ClueGame game = new ClueGame("ClueLayoutCR.csv", "ClueLegendCR.txt");
 		game.loadConfigFiles();
-		// Get the board that was loaded with data. Done as a convenience, so
-		// all tests can easily access this loaded board. 
 		board = game.getBoard();
 	}
 	@Test
 	public void testRooms() {
-		Map<Character, String> rooms = game.getRooms();
+		Map<Character, String> rooms = board.getRooms();
 		// Ensure we read the correct number of rooms
 		assertEquals(NUM_ROOMS, rooms.size());
 		// Test retrieving a few from the hash, including the first
@@ -67,16 +60,16 @@ public class CR_FileInitTests {
 		// Test one each RIGHT/LEFT/UP/DOWN
 		RoomCell room = board.getRoomCellAt(4, 3);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
 		room = board.getRoomCellAt(4, 8);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
 		room = board.getRoomCellAt(15, 18);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());
 		room = board.getRoomCellAt(14, 11);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.UP, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
 		room = board.getRoomCellAt(14, 14);
 		assertFalse(room.isDoorway());	
@@ -117,28 +110,27 @@ public class CR_FileInitTests {
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Game ctor takes config file names
-		// Notice this test does NOT use the static variables
-		ClueGame game = new ClueGame("ClueLayoutBadColumns.csv", "ClueLegend.txt");
+		ClueGame game = new ClueGame("ClueLayoutBadColumns.csv", "ClueLegendCR.txt");
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig(game.getRooms());
+		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegend.txt");
+		ClueGame game = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig(game.getRooms());
+		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadFormat.txt");
+		ClueGame game = new ClueGame("ClueLayoutCR.csv", "ClueLegendBadFormat.txt");
 		game.loadRoomConfig();
-		game.getBoard().loadBoardConfig(game.getRooms());
+		game.getBoard().loadBoardConfig();
 	}
 }

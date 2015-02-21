@@ -5,7 +5,7 @@ R, Billiard room
 L, Library
 S, Study
 D, Dining room
+O, Lounge
 H, Hall
-G, Guest room
 X, Closet
 W, Walkway

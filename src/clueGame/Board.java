@@ -14,69 +14,70 @@ public class Board {
 	public Board(String layoutFile, String legendFile) {
 		this.legendFile = legendFile;
 		this.layoutFile = layoutFile;
-		/*
-		for (int i = 0; i<numRows; ++i) {
-			for (int j = 0; j<numColumns; ++j) {
-				grid[i][j] = new BoardCell(i,j);
-			}
-		}
-		*/
 	}
 
-	public void loadBoardConfig() throws Exception{
+	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
 		testBoardConfig();
+		testLegend();
+		getRooms();
 		grid = new BoardCell[numRows][numColumns];
 		FileReader reader = null;
 		Scanner in = null;
 		try {
 			reader = new FileReader(layoutFile);
 			in = new Scanner(reader);
-		}catch (Exception e) {
+		}catch (FileNotFoundException e) {
 			System.out.println(e.getLocalizedMessage());
 		}
 		for (int i = 0; i<numRows; ++i) {
 			String line = in.nextLine();
 			String[] legend = line.split(",");
 			for (int j = 0; j<legend.length; ++j) {
-				if (legend[j].charAt(0) == 'P') {
+				if (legend[j].charAt(0) == 'W') {
 					WalkwayCell w = new WalkwayCell(i,j,legend[j]);
 					grid[i][j] = w;
+				} else if (!rooms.containsKey(legend[j].charAt(0))){
+					throw new BadConfigFormatException("Bad room: doesn't exist in legend");
+				} else if (legend[j].length() ==2){
+					if (legend[j].charAt(1)=='R'||legend[j].charAt(1)=='L'||legend[j].charAt(1)=='U'||legend[j].charAt(1)=='D') {
+						RoomCell r = new RoomCell(i,j,legend[j]);
+						grid[i][j] = r;
+					}else {
+						throw new BadConfigFormatException("Bad door: direction does not exist");
+					}
 				} else {
 					RoomCell r = new RoomCell(i,j,legend[j]);
-					grid[i][j] = r;
+				    grid[i][j] = r;
 				}
 			}
 		}
 	}
 
-	public void testBoardConfig() throws Exception {
+	public void testBoardConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader reader = null;
 		Scanner in = null;
 		try {
 			reader = new FileReader(layoutFile);
 			in = new Scanner(reader);
-		}catch (Exception e) {
+		}catch (FileNotFoundException e) {
 			System.out.println(e.getLocalizedMessage());
 		}
 		boolean firstline = true;
+
 		while (in.hasNextLine()) {
-			try {
-				String line = in.nextLine();
-				numRows++;
-				String[] legend = line.split(",");
-				if (firstline == true) {
-					numColumns = legend.length;
-					firstline = false;
-				}
-				if (legend.length!= numColumns) {
-					throw new BadConfigFormatException("Not consistend columns");
-				}
-			} catch (Exception e) {
-				System.out.println(e.getLocalizedMessage());
+			String line = in.nextLine();
+			numRows++;
+			String[] legend = line.split(",");
+			if (firstline == true) {
+				numColumns = legend.length;
+				firstline = false;
+			}
+			if (legend.length!= numColumns) {
+				throw new BadConfigFormatException("Not consistend columns");
 			}
 		}
 		in.close();
-		reader.close();
+		//reader.close();
 	}
 	//this method reads the layout file and creates a map of rooms
 	public Map<Character, String> getRooms() {
@@ -87,19 +88,14 @@ public class Board {
 			reader = new FileReader(legendFile);
 			in = new Scanner(reader);
 
-		}catch (Exception e) {
+		}catch (FileNotFoundException e) {
 			System.out.println(e.getLocalizedMessage());
 		}
 		while (in.hasNextLine()) {
-			try{
 				String line = in.nextLine();
 				String[] legend = new String[2];
 				legend = line.split(", ");
 				rooms.put(legend[0].charAt(0),legend[1]);
-			}catch (Exception e) {
-				System.out.println(e.getLocalizedMessage());
-			}
-
 		}
 		in.close();
 		try {
@@ -109,6 +105,27 @@ public class Board {
 			e.printStackTrace();
 		}
 		return rooms;
+	}
+	
+	public void testLegend() throws BadConfigFormatException{
+		FileReader reader = null;
+		Scanner in = null;
+		try{
+			reader = new FileReader(legendFile);
+			in = new Scanner(reader);
+
+		}catch (FileNotFoundException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		while (in.hasNextLine()) {
+			String line = in.nextLine();
+			String[] legend = new String[2];
+			legend = line.split(", ");
+			if (legend.length>2) {
+				throw new BadConfigFormatException("Error in legend format");
+			}
+		}
+		in.close();
 	}
 
 	public int getNumRows() {
@@ -127,6 +144,10 @@ public class Board {
 		return null;
 	}
 	
+	public BoardCell getCellAt(int row, int col) {
+		return grid[row][col];
+	}
+
 	public static void main(String[] args) {
 		Board b = new Board("ClueLayout.csv","ClueLegend.txt");
 		try {
@@ -135,9 +156,13 @@ public class Board {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RoomCell room = b.getRoomCellAt(31,9);
-		
+		if (b.getRooms().containsKey('Z')) {
+			System.out.println("contains z");
+		}else {
+			System.out.println("hidlajfd");
+		}
+
 	}
-	
-	
+
+
 }

@@ -45,9 +45,9 @@ public class TestsPart1 {
 		assertEquals("Study", rooms.get('S'));
 		assertEquals("Dining room", rooms.get('D'));
 		assertEquals("Hall", rooms.get('H'));
-		assertEquals("Wine Cellar", rooms.get('W'));
+		assertEquals("Guest room", rooms.get('G'));
 		assertEquals("Closet", rooms.get('X'));
-		assertEquals("Path", rooms.get('P'));
+		assertEquals("Walkway", rooms.get('W'));
 	}
 	
 	@Test
@@ -76,23 +76,61 @@ public class TestsPart1 {
 	@Test
 	public void testRoomInitials() {
 		RoomCell room = board.getRoomCellAt(31, 9);
-		assertTrue(board.getRoomCellAt(0,30).getSymbol().equals('C'));
-		assertTrue(board.getRoomCellAt(1,1).getSymbol().equals('K'));
-		assertTrue(board.getRoomCellAt(1,15).getSymbol().equals('B'));
-		assertTrue(board.getRoomCellAt(12,30).getSymbol().equals('R'));
-		assertTrue(board.getRoomCellAt(18,30).getSymbol().equals('L'));
-		assertTrue(board.getRoomCellAt(30,22).getSymbol().equals('S'));
-		assertTrue(board.getRoomCellAt(29,5).getSymbol().equals('D'));
-		assertTrue(board.getRoomCellAt(29,14).getSymbol().equals('H'));
-		assertTrue(board.getRoomCellAt(14,2).getSymbol().equals('W'));
-		assertTrue(board.getRoomCellAt(14,14).getSymbol().equals('X'));
+		assertTrue(board.getRoomCellAt(0,30).getInitial().equals('C'));
+		assertTrue(board.getRoomCellAt(1,1).getInitial().equals('K'));
+		assertTrue(board.getRoomCellAt(1,15).getInitial().equals('B'));
+		assertTrue(board.getRoomCellAt(12,30).getInitial().equals('R'));
+		assertTrue(board.getRoomCellAt(18,30).getInitial().equals('L'));
+		assertTrue(board.getRoomCellAt(30,22).getInitial().equals('S'));
+		assertTrue(board.getRoomCellAt(29,5).getInitial().equals('D'));
+		assertTrue(board.getRoomCellAt(29,14).getInitial().equals('H'));
+		assertTrue(board.getRoomCellAt(14,2).getInitial().equals('G'));
+		assertTrue(board.getRoomCellAt(14,14).getInitial().equals('X'));
 		
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
-	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
+	public void testBadColumns() throws Exception {
+		ClueGame badColGame = new ClueGame("ClueLayoutBadColumns.csv","ClueLegendCR.txt");
+		badColGame.loadConfigFiles();
+		Board badColBoard = badColGame.getBoard();
+		badColBoard.loadBoardConfig();
 		
 	}
+	
+	@Test (expected = BadConfigFormatException.class)
+	public void testBadRoom() throws Exception {
+		ClueGame badRoomGame = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt");
+		badRoomGame.loadConfigFiles();
+		Board badRoomBoard = badRoomGame.getBoard();
+		badRoomBoard.loadBoardConfig();
+	}
+	
+	@Test
+	public void testNumberofDoors() {
+		int numDoors = 0;
+		int totalCells = board.getNumColumns()*board.getNumRows();
+		Assert.assertEquals(1024, totalCells);
+		for (int row=0; row<board.getNumRows(); row++) {
+			for (int col = 0; col<board.getNumColumns(); ++col) {
+				BoardCell cell = board.getCellAt(row,col);
+				if (cell.isDoorway()) {
+					numDoors++;
+				}
+			}
+		}
+		assertEquals(25, numDoors);
+	}
+	
+	@Test (expected = BadConfigFormatException.class)
+	public void testBadRoomFormat() throws Exception {
+		ClueGame badLegendGame = new ClueGame("ClueLayoutCR.csv","ClueLegendBadFormat.txt");
+		badLegendGame.loadConfigFiles();
+		Board badLegendBoard = badLegendGame.getBoard();
+		badLegendBoard.loadBoardConfig();
+	}
+	
+	
 	
 
 }

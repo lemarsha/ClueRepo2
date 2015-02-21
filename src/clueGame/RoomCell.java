@@ -49,13 +49,13 @@ public class RoomCell extends BoardCell{
 		return doorDirection;
 	}
 	
-	public Character getSymbol() {
+	public Character getInitial() {
 		return symbol;
 	}
 	
 	public static void main(String[] args ) {
 		RoomCell r = new RoomCell(1,2,"HR");
-		System.out.println(r.getSymbol());
+		System.out.println(r.getInitial());
 		System.out.println(r.getDoorDirection());
 		
 		

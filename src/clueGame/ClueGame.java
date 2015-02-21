@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class ClueGame {
@@ -14,22 +15,29 @@ public class ClueGame {
 		this.legendFile = legendFile;
 	}
 	
-	public void loadConfigFiles(){
+	public void loadConfigFiles() {
 		b = new Board(layoutFile,legendFile);
 		try {
-			b.loadBoardConfig();
-		}catch (Exception e){
-			System.out.println(e.getLocalizedMessage());
+		b.loadBoardConfig();
+		} catch(FileNotFoundException e) {
+			e.getLocalizedMessage();
+		}catch (BadConfigFormatException e) {
+			e.getLocalizedMessage();
 		}
+		
 	}
 	
 	public void loadRoomConfig() {
-		
+		b.getRooms();
 	}
 	
 	public Board getBoard() {
 		return b;
 		
+	}
+	
+	public Map<Character, String> getRooms() {
+		return b.getRooms();
 	}
 	
 	public static void main(String[] args) {
