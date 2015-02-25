@@ -165,17 +165,20 @@ public class Board {
 	//creates a list of adjacent cells
 	public LinkedList<BoardCell> getAdjList(int row, int col) {
 		LinkedList<BoardCell> adjacencies = new LinkedList<BoardCell>();
+		if (!grid[row][col].isDoorway() && grid[row][col].isRoom()) {
+			return adjacencies;
+		}
 		if (col-1>=0) {
-			if (grid[row][col].getInitial() == grid[row][col-1].getInitial()) {
+			if (grid[row][col].getInitial() == grid[row][col-1].getInitial() && grid[row][col].isWalkway()) {
 				adjacencies.add(grid[row][col-1]);
 			} else if (grid[row][col-1].isDoorway()&&grid[row][col-1].getDoorDirection()==DoorDirection.RIGHT) {
 				adjacencies.add(grid[row][col-1]);
 			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.LEFT) {
 				adjacencies.add(grid[row][col-1]);
-			} 
+			}
 		}
 		if (col+1<numColumns) {
-			if (grid[row][col].getInitial() == grid[row][col+1].getInitial()) {
+			if (grid[row][col].getInitial() == grid[row][col+1].getInitial()&& grid[row][col].isWalkway()) {
 				adjacencies.add(grid[row][col+1]);
 			} else if (grid[row][col+1].isDoorway()&&grid[row][col+1].getDoorDirection() ==DoorDirection.LEFT) {
 				adjacencies.add(grid[row][col+1]);
@@ -184,7 +187,7 @@ public class Board {
 			}
 		}
 		if (row-1>=0) {
-			if (grid[row][col].getInitial() == grid[row-1][col].getInitial()) {
+			if (grid[row][col].getInitial() == grid[row-1][col].getInitial()&& grid[row][col].isWalkway()) {
 				adjacencies.add(grid[row-1][col]);
 			} else if (grid[row-1][col].isDoorway()&&grid[row-1][col].getDoorDirection() ==DoorDirection.DOWN) {
 				adjacencies.add(grid[row-1][col]);
@@ -193,13 +196,16 @@ public class Board {
 			}
 		}
 		if (row+1<numRows) {
-			if (grid[row][col].getInitial() == grid[row+1][col].getInitial()) {
+			if (grid[row][col].getInitial() == grid[row+1][col].getInitial()&& grid[row][col].isWalkway()) {
 				adjacencies.add(grid[row+1][col]);
 			} else if (grid[row+1][col].isDoorway()&&grid[row+1][col].getDoorDirection() ==DoorDirection.UP) {
 				adjacencies.add(grid[row+1][col]);
 			} else if (grid[row][col].isDoorway()&&grid[row][col].getDoorDirection() ==DoorDirection.DOWN) {
 				adjacencies.add(grid[row+1][col]);
 			}
+		}
+		if (adjacencies.contains(grid[row][col])) {
+			adjacencies.remove(grid[row][col]);
 		}
 		return adjacencies;
 	}
@@ -229,7 +235,7 @@ public class Board {
 		for (BoardCell b: current_adj_cells){
 			if(!visited.contains(b)){
 				visited.add(b);
-				if( numSteps == 1){
+				if( numSteps == 1 || b.isDoorway()){
 					target_cells.add(b);
 				}else {
 					findAllTargets(b, numSteps-1);

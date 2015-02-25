@@ -15,7 +15,6 @@ import clueGame.BadConfigFormatException;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.ClueGame;
-import clueGame.DoorDirection;
 import clueGame.RoomCell;
 
 public class CR_FileInitTests {
@@ -61,16 +60,16 @@ public class CR_FileInitTests {
 		// Test one each RIGHT/LEFT/UP/DOWN
 		RoomCell room = board.getRoomCellAt(4, 3);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.RIGHT, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.RIGHT, room.getDoorDirection());
 		room = board.getRoomCellAt(4, 8);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.DOWN, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.DOWN, room.getDoorDirection());
 		room = board.getRoomCellAt(15, 18);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.LEFT, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.LEFT, room.getDoorDirection());
 		room = board.getRoomCellAt(14, 11);
 		assertTrue(room.isDoorway());
-		assertEquals(DoorDirection.UP, room.getDoorDirection());
+		assertEquals(RoomCell.DoorDirection.UP, room.getDoorDirection());
 		// Test that room pieces that aren't doors know it
 		room = board.getRoomCellAt(14, 14);
 		assertFalse(room.isDoorway());	
@@ -100,38 +99,38 @@ public class CR_FileInitTests {
 	// correct.
 	@Test
 	public void testRoomInitials() {
-		assertTrue(board.getRoomCellAt(0, 0).getInitial().equals('C'));
-		assertTrue(board.getRoomCellAt(4, 8).getInitial().equals('R'));
-		assertTrue(board.getRoomCellAt(9, 0).getInitial().equals('B'));
-		assertTrue(board.getRoomCellAt(21, 22).getInitial().equals('O'));
-		assertTrue(board.getRoomCellAt(21, 0).getInitial().equals('K'));
+		assertEquals('C', board.getRoomCellAt(0, 0).getInitial());
+		assertEquals('R', board.getRoomCellAt(4, 8).getInitial());
+		assertEquals('B', board.getRoomCellAt(9, 0).getInitial());
+		assertEquals('O', board.getRoomCellAt(21, 22).getInitial());
+		assertEquals('K', board.getRoomCellAt(21, 0).getInitial());
 	}
 	
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Game ctor takes config file names
-		ClueGame game1 = new ClueGame("ClueLayoutBadColumns.csv", "ClueLegendCR.txt");
+		ClueGame game = new ClueGame("ClueLayoutBadColumns.csv", "ClueLegend.txt");
 		// You may change these calls if needed to match your function names
 		// My loadConfigFiles has a try/catch, so I can't call it directly to
 		// see test throwing the BadConfigFormatException
-		game1.loadConfigFiles();
-		game1.getBoard().loadBoardConfig();
+		game.loadRoomConfig();
+		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game2 = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt");
-		game2.loadConfigFiles();
-		game2.getBoard().loadBoardConfig();
+		ClueGame game = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegend.txt");
+		game.loadRoomConfig();
+		game.getBoard().loadBoardConfig();
 	}
 	// Test that an exception is thrown for a bad config file
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws BadConfigFormatException, FileNotFoundException {
 		// overloaded Board ctor takes config file name
-		ClueGame game3 = new ClueGame("ClueLayoutCR.csv", "ClueLegendBadFormat.txt");
-		game3.loadConfigFiles();
-		game3.getBoard().loadBoardConfig();
+		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegendBadFormat.txt");
+		game.loadRoomConfig();
+		game.getBoard().loadBoardConfig();
 	}
 }

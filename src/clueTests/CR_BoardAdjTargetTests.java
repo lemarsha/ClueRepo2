@@ -54,7 +54,7 @@ public class CR_BoardAdjTargetTests {
 	public void testAdjacencyRoomExit()
 	{
 		// TEST DOORWAY RIGHT 
-		LinkedList<BoardCell> testList = board.getAdjList(11, 6);
+		LinkedList<BoardCell> testList = board.getAdjList(11,6); 
 		Assert.assertEquals(1, testList.size());
 		Assert.assertTrue(testList.contains(board.getCellAt(11, 7)));
 		// TEST DOORWAY LEFT 
@@ -226,12 +226,7 @@ public class CR_BoardAdjTargetTests {
 	public void testTargetsSixSteps() {
 		board.calcTargets(14, 0, 6);
 		Set<BoardCell> targets= board.getTargets();
-		System.out.println(targets);
-		for(BoardCell b: targets) {
-			System.out.println("row="+b.getRow()+" column="+b.getColumn());
-		}
 		Assert.assertEquals(7, targets.size());
-		
 		Assert.assertTrue(targets.contains(board.getCellAt(14, 6)));
 		Assert.assertTrue(targets.contains(board.getCellAt(15, 5)));	
 		Assert.assertTrue(targets.contains(board.getCellAt(15, 3)));	
@@ -302,7 +297,6 @@ public class CR_BoardAdjTargetTests {
 		board.calcTargets(4, 20, 1);
 		Set<BoardCell> targets= board.getTargets();
 		// Ensure doesn't exit through the wall
-		System.out.println(targets.size());
 		Assert.assertEquals(1, targets.size());
 		Assert.assertTrue(targets.contains(board.getCellAt(4, 19)));
 		// Take two steps

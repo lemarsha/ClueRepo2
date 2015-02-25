@@ -27,6 +27,8 @@ public class ClueGame {
 	}
 	
 	public void loadConfigFiles() {
+		loadRoomConfig();
+		/*
 		b = new Board(layoutFile,legendFile);
 		try {
 		b.loadBoardConfig();
@@ -35,10 +37,21 @@ public class ClueGame {
 		}catch (BadConfigFormatException e) {
 			e.getLocalizedMessage();
 		}
+		*/
 		
 	}
 	
 	public void loadRoomConfig() {
+		b = new Board(layoutFile,legendFile);
+		try {
+			b.loadBoardConfig();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.getLocalizedMessage();
+		} catch (BadConfigFormatException e) {
+			// TODO Auto-generated catch block
+			e.getLocalizedMessage();
+		}
 		b.getRooms();
 	}
 	

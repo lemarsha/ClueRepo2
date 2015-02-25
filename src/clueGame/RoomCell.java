@@ -2,6 +2,8 @@ package clueGame;
 
 public class RoomCell extends BoardCell{
 	
+	public enum DoorDirection{LEFT,RIGHT,UP,DOWN};
+	
 	private int row, column;
 	private DoorDirection doorDirection;
 	private Character symbol;
@@ -34,7 +36,7 @@ public class RoomCell extends BoardCell{
 		return true;
 	}
 
-	public DoorDirection getDoorDirection() {
+	public clueGame.DoorDirection getDoorDirection() {
 		if (doorDir == 'R') {
 			doorDirection= DoorDirection.RIGHT;
 		}
