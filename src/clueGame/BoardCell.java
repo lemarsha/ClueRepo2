@@ -20,7 +20,7 @@ public abstract class BoardCell {
 	abstract public boolean isRoom();
 	abstract public boolean isDoorway();
 	abstract public DoorDirection getDoorDirection();
-	abstract public Character getInitial();
+	abstract public char getInitial();
 	//abstract void draw();
 	
 	public int getRow() {

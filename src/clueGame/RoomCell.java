@@ -2,7 +2,7 @@ package clueGame;
 
 public class RoomCell extends BoardCell{
 	
-	public enum DoorDirection{LEFT,RIGHT,UP,DOWN};
+	public static DoorDirection DoorDirection;
 	
 	private int row, column;
 	private DoorDirection doorDirection;
@@ -52,7 +52,7 @@ public class RoomCell extends BoardCell{
 		return doorDirection;
 	}
 	
-	public Character getInitial() {
+	public char getInitial() {
 		return symbol;
 	}
 	

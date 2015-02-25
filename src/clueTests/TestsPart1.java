@@ -75,16 +75,16 @@ public class TestsPart1 {
 	
 	@Test
 	public void testRoomInitials() {
-		assertTrue(board.getRoomCellAt(0,30).getInitial().equals('C'));
-		assertTrue(board.getRoomCellAt(1,1).getInitial().equals('K'));
-		assertTrue(board.getRoomCellAt(1,15).getInitial().equals('B'));
-		assertTrue(board.getRoomCellAt(12,30).getInitial().equals('R'));
-		assertTrue(board.getRoomCellAt(18,30).getInitial().equals('L'));
-		assertTrue(board.getRoomCellAt(30,22).getInitial().equals('S'));
-		assertTrue(board.getRoomCellAt(29,5).getInitial().equals('D'));
-		assertTrue(board.getRoomCellAt(29,14).getInitial().equals('H'));
-		assertTrue(board.getRoomCellAt(14,2).getInitial().equals('G'));
-		assertTrue(board.getRoomCellAt(14,14).getInitial().equals('X'));
+		assertEquals('C', board.getRoomCellAt(0,30).getInitial());
+		assertEquals('K', board.getRoomCellAt(1,1).getInitial());
+		assertEquals('B', board.getRoomCellAt(1,15).getInitial());
+		assertEquals('R', board.getRoomCellAt(12,30).getInitial());
+		assertEquals('L', board.getRoomCellAt(18,30).getInitial());
+		assertEquals('S', board.getRoomCellAt(30,22).getInitial());
+		assertEquals('D', board.getRoomCellAt(29,5).getInitial());
+		assertEquals('H', board.getRoomCellAt(29,14).getInitial());
+		assertEquals('G', board.getRoomCellAt(14,2).getInitial());
+		assertEquals('X', board.getRoomCellAt(14,14).getInitial());
 		
 	}
 	

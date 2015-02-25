@@ -35,7 +35,7 @@ public class WalkwayCell extends BoardCell{
 		return null;
 	}
 	
-	public Character getInitial() {
+	public char getInitial() {
 		return symbol;
 	}
 	
