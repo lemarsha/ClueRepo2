@@ -1,0 +1,6 @@
+Tupac,red,0,11
+P-Diddy,blue,12,0
+Floyd Mayweather,purple,21,5
+Aaron Hernandez,green,21,12
+Nikki Manaj,yellow,15,22
+Ronda Rousey,white,4,22
