@@ -248,8 +248,7 @@ public class Board {
 	public Set<BoardCell> getTargets(){
 		return target_cells;
 	}
-	
-	
+
 	
 }
 

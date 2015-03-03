@@ -7,8 +7,11 @@ import java.util.*;
 
 public class ClueGame {
 	
-	private static final String LAYOUTFILE = "ClueLayoutCR.csv";
-	private static final String LEGENDFILE = "ClueLegendCR.txt";
+	private static final String LAYOUTFILE = "boardLayout.csv";
+	private static final String LEGENDFILE = "legend.txt";
+	
+	//private static final String LAYOUTFILE = "ClueLayout.csv";
+	//private static final String LEGENDFILE = "ClueLegend.txt";
 	
 	private Map<Character,String> rooms = null;
 	private String layoutFile, legendFile;
@@ -65,12 +68,13 @@ public class ClueGame {
 	}
 	
 	public static void main(String[] args) {
-		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt");
+		ClueGame game = new ClueGame("ClueLayout.csv", "ClueLegend.txt");
 		game.loadConfigFiles();
 		Board b = game.getBoard();
 		RoomCell r = b.getRoomCellAt(31, 10);
 		System.out.println(r.isDoorway());
 	}
+
 	
 
 }
