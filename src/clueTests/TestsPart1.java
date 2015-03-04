@@ -28,7 +28,7 @@ public class TestsPart1 {
 	
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt");
+		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt", "characters.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 	}
@@ -90,7 +90,7 @@ public class TestsPart1 {
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws Exception {
-		ClueGame badColGame = new ClueGame("ClueLayoutBadColumns.csv","ClueLegendCR.txt");
+		ClueGame badColGame = new ClueGame("ClueLayoutBadColumns.csv","ClueLegendCR.txt", "characters.txt");
 		badColGame.loadConfigFiles();
 		Board badColBoard = badColGame.getBoard();
 		badColBoard.loadBoardConfig();
@@ -99,7 +99,7 @@ public class TestsPart1 {
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws Exception {
-		ClueGame badRoomGame = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt");
+		ClueGame badRoomGame = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt", "characters.txt");
 		badRoomGame.loadConfigFiles();
 		Board badRoomBoard = badRoomGame.getBoard();
 		badRoomBoard.loadBoardConfig();
@@ -123,7 +123,7 @@ public class TestsPart1 {
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws Exception {
-		ClueGame badLegendGame = new ClueGame("ClueLayoutCR.csv","ClueLegendBadFormat.txt");
+		ClueGame badLegendGame = new ClueGame("ClueLayoutCR.csv","ClueLegendBadFormat.txt", "characters.txt");
 		badLegendGame.loadConfigFiles();
 		Board badLegendBoard = badLegendGame.getBoard();
 		badLegendBoard.loadBoardConfig();
