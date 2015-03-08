@@ -20,6 +20,7 @@ public class ClueGame {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
+	private static Solution victory = new Solution(); 
 	private Board b;
 
 	public ClueGame(String layoutFile, String legendFile, String cardFile) {
@@ -39,7 +40,6 @@ public class ClueGame {
 	public void loadConfigFiles() {
 		loadRoomConfig();
 		loadCards();
-		deal();
 	}
 
 	public void loadCards() {
@@ -126,13 +126,53 @@ public class ClueGame {
 	public Map<Character, String> getRooms() {
 		return b.getRooms();
 	}
-
-	public void shuffleDeck() {
-		
-	}
 	
 	public void deal(){
 		//Deals the cards to all the players so that they can hold the cards
+
+		Random rng = new Random();
+		int i = rng.nextInt(9);
+		Card c = deck.get(i);
+		victory.place = c.getName();
+		i = rng.nextInt(6) + 9;
+		c = deck.get(i);
+		victory.place = c.getName();
+		i = rng.nextInt(6)+15;
+		c = deck.get(i);
+		victory.weapon = c.getName();
+		
+		int playerGetCard=0;
+		Player p = new Player();
+		while(deck.size()>0) {
+			i = rng.nextInt(deck.size());
+			c = deck.get(i);
+			deck.remove(i);
+			if(playerGetCard == 0) {
+				p = players.get(0);
+				p.addToHand(c);
+			}
+			else if(playerGetCard == 1){
+				p = players.get(1);
+				p.addToHand(c);
+			}
+			else if(playerGetCard == 2) {
+				p = players.get(2);
+				p.addToHand(c);
+			}
+			else if(playerGetCard == 3) {
+				p = players.get(3);
+				p.addToHand(c);}
+			else if( playerGetCard == 4){
+				p = players.get(4);
+				p.addToHand(c);
+			}
+			else {
+				p = players.get(5);
+				p.addToHand(c);
+				playerGetCard =-1;
+			}
+			playerGetCard++;
+		}
 		
 	}
 	

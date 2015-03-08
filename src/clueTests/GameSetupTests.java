@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -24,8 +25,8 @@ public class GameSetupTests {
 	private static Board board;
 	private static ClueGame game;
 	
-	@BeforeClass
-	public static void setUp() {
+	@Before
+	public void setUp() {
 		game = new ClueGame();
 		game.loadConfigFiles();
 		board = game.getBoard();
@@ -78,6 +79,7 @@ public class GameSetupTests {
 
 	@Test
 	public void dealTest() {
+		game.deal();
 		Assert.assertEquals(0, game.getDeckSize());
 		
 		ArrayList<Player> parr = game.getPlayers();

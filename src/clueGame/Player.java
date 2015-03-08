@@ -6,7 +6,7 @@ public class Player {
 	private String name;
 	private String color;
 	private BoardCell location;
-	private ArrayList<Card> hand;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
 	
 	public Player(String name, String color, String x, String y) {
@@ -21,6 +21,12 @@ public class Player {
 		this.location = bd;
 	}
 	
+
+	public Player() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
 
 	public String getName() {
 		return name;
@@ -60,8 +66,8 @@ public class Player {
 		return hand.size();
 	}
 
-	public void setHand(ArrayList<Card> hand) {
-		this.hand = hand;
+	public void addToHand(Card c) {
+		hand.add(c);
 	}
 
 
