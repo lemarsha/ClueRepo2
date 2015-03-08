@@ -57,27 +57,20 @@ public class ClueGame {
 		while(in.hasNextLine()) {
 			if(counter < 6) {
 				sarr[counter] = in.nextLine();
-				System.out.println("player"); 
-				System.out.println(sarr[counter]);
 				totalPlayers++;
 			}
 			else if(counter < 15) {
-				System.out.println("room");
 				String s = in.nextLine();
-				System.out.println(s);
 				Card c = new Card(s, Card.cardType.ROOM);
 				deck.add(c);
 				totalRooms++;
 			}
 			else {
-				System.out.println("weapon");
 				String s = in.nextLine();
-				System.out.println(s);
 				Card c = new Card(s, Card.cardType.WEAPON);
 				deck.add(c);
 				totalWeapons++;
 			}
-			System.out.println("\n");
 			counter++;
 		}
 		loadPlayers(sarr);
@@ -134,13 +127,16 @@ public class ClueGame {
 		return b.getRooms();
 	}
 
-	public ArrayList<Card> deal(){
-		return null;
+	public void shuffleDeck() {
+		
+	}
+	
+	public void deal(){
 		//Deals the cards to all the players so that they can hold the cards
+		
 	}
 	
 	public int  getDeckSize() {
-		System.out.println(deck);
 		return deck.size();
 	}
 	
@@ -155,6 +151,10 @@ public class ClueGame {
 	}
 	public ArrayList<Card> getDeck() {
 		return deck;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 
 	public static void main(String[] args) {

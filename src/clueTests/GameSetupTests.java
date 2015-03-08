@@ -17,6 +17,7 @@ import clueGame.HumanPlayer;
 import clueGame.ComputerPlayer;
 import clueGame.ClueGame;
 import clueGame.WalkwayCell;
+import clueGame.Card.cardType;
 
 public class GameSetupTests {
 	
@@ -65,8 +66,32 @@ public class GameSetupTests {
 		Assert.assertEquals(6, game.getPlayersTot());
 		Assert.assertEquals(6, game.getWeaponsTot());
 		Assert.assertEquals(9, game.getRoomTot());
-		//Assert.assertTrue();
+		ArrayList<Card> decky = game.getDeck();
+		Card c = new Card("Tupac", Card.cardType.PERSON);
+		Assert.assertTrue(decky.contains(c));
+		c = new Card("Hall", Card.cardType.ROOM);
+		Assert.assertTrue(decky.contains(c));
+		c = new Card("Shank", Card.cardType.WEAPON);
+		Assert.assertTrue(decky.contains(c));
 		
 	}
 
+	@Test
+	public void dealTest() {
+		Assert.assertEquals(0, game.getDeckSize());
+		
+		ArrayList<Player> parr = game.getPlayers();
+		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(5).getHandSize()));
+		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(4).getHandSize()));
+		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(3).getHandSize()));
+		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(2).getHandSize()));
+		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(1).getHandSize()));
+		
+		Card c = new Card("Tupac", Card.cardType.PERSON);
+		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(1).getHand().contains(c));
+		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(2).getHand().contains(c));
+		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(3).getHand().contains(c));
+		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(4).getHand().contains(c));
+		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(5).getHand().contains(c));
+	}
 }

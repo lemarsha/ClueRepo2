@@ -56,6 +56,9 @@ public class Player {
 		return hand;
 	}
 
+	public int getHandSize() {
+		return hand.size();
+	}
 
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
