@@ -1,3 +1,21 @@
-Conservatory,Kitchen,Ballroom,Billiard Room,Library,Study,Dining Room,Lounge,Hall
-Shank,Ak-47,Cadillac,9 Iron,Brass Knuckles,Switch Blade
-Tupac,P-Diddy,Floyd Mayweather,Aaron Hernandez,Nikki Manaj,Ronda Rousey
+Tupac,red,0,11
+P-Diddy,blue,12,0
+Floyd Mayweather,purple,21,5
+Aaron Hernandez,green,21,12
+Nikki Manaj,yellow,15,22
+Ronda Rousey,white,4,22
+Conservatory
+Kitchen
+Ballroom
+Billiard Room
+Library
+Study
+Dining Room
+Lounge
+Hall
+Shank
+Ak-47
+Cadillac
+9 Iron
+Brass Knuckles
+Switch Blade

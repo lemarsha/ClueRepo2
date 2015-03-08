@@ -10,7 +10,7 @@ public class ClueGame {
 
 	private static final String LAYOUTFILE = "boardLayout.csv";
 	private static final String LEGENDFILE = "legend.txt";
-	private static final String PLAYERFILE = "characters.txt";
+	private static final String CARDFILE = "cards.txt";
 
 	//private static final String LAYOUTFILE = "ClueLayout.csv";
 	//private static final String LEGENDFILE = "ClueLegend.txt";
@@ -18,58 +18,79 @@ public class ClueGame {
 	private Map<Character,String> rooms = null;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
-	private String layoutFile, legendFile, playerFile;
+	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
 	private Board b;
 
-	public ClueGame(String layoutFile, String legendFile, String playerFile) {
+	public ClueGame(String layoutFile, String legendFile, String cardFile) {
 		super();
 		this.layoutFile = layoutFile;
 		this.legendFile = legendFile;
-		this.playerFile = playerFile;
+		this.cardFile = cardFile;
 	}
 
 	public ClueGame() {
 		super();
 		layoutFile = LAYOUTFILE;
 		legendFile = LEGENDFILE;
-		playerFile = PLAYERFILE;
+		cardFile = CARDFILE;
 	}
 
 	public void loadConfigFiles() {
 		loadRoomConfig();
-		/*
-		b = new Board(layoutFile,legendFile);
-		try {
-		b.loadBoardConfig();
-		} catch(FileNotFoundException e) {
-			e.getLocalizedMessage();
-		}catch (BadConfigFormatException e) {
-			e.getLocalizedMessage();
-		}
-		 */
-		loadPlayers();
+		loadCards();
 		deal();
 	}
 
-	public void loadPlayers() {
-		//Have player select name to play as that character, rest of names
-		//are sent to the computerplayer class, also can select how many players 
-		//are playing, for additional work
-		boolean human = true;
+	public void loadCards() {
+		String[] sarr = new String[6];  
 		FileReader reader = null;
 		Scanner in = null;
 		try{
-			reader = new FileReader(playerFile);
+			reader = new FileReader(cardFile);
 			in = new Scanner(reader);
 
 		}catch (FileNotFoundException e) {
 			System.out.println(e.getLocalizedMessage());
 		}
-		while (in.hasNextLine()) {
-			String line = in.nextLine();
+		int counter = 0;
+		while(in.hasNextLine()) {
+			if(counter < 6) {
+				sarr[counter] = in.nextLine();
+				System.out.println("player"); 
+				System.out.println(sarr[counter]);
+				totalPlayers++;
+			}
+			else if(counter < 15) {
+				System.out.println("room");
+				String s = in.nextLine();
+				System.out.println(s);
+				Card c = new Card(s, Card.cardType.ROOM);
+				deck.add(c);
+				totalRooms++;
+			}
+			else {
+				System.out.println("weapon");
+				String s = in.nextLine();
+				System.out.println(s);
+				Card c = new Card(s, Card.cardType.WEAPON);
+				deck.add(c);
+				totalWeapons++;
+			}
+			System.out.println("\n");
+			counter++;
+		}
+		loadPlayers(sarr);
+	}
+	
+	public void loadPlayers(String[] sarr) {
+		//Have player select name to play as that character, rest of names
+		//are sent to the computerplayer class, also can select how many players 
+		//are playing, for additional work
+		boolean human = true;
+		for(String s: sarr) {
 			String[] pStat = new String[4];
-			pStat= line.split(",");
+			pStat= s.split(",");
 			Player p;
 			
 			if(human) {
@@ -80,10 +101,9 @@ public class ClueGame {
 				p = new ComputerPlayer(pStat[0], pStat[1], pStat[2], pStat[3]);
 			
 			players.add(p);
-
+			Card c = new Card(pStat[0], Card.cardType.PERSON);
+			deck.add(c);
 		}
-		in.close();
-
 	}
 
 	public ArrayList<Player> returnPlayers() {
@@ -120,6 +140,7 @@ public class ClueGame {
 	}
 	
 	public int  getDeckSize() {
+		System.out.println(deck);
 		return deck.size();
 	}
 	
@@ -137,7 +158,7 @@ public class ClueGame {
 	}
 
 	public static void main(String[] args) {
-		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "characters.txt");
+		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
 		Board b = game.getBoard();
 		RoomCell r = b.getRoomCellAt(31, 10);

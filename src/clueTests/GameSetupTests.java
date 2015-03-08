@@ -61,8 +61,7 @@ public class GameSetupTests {
 	
 	@Test
 	public void loadCards() {
-		ArrayList<Card> deckers = game.getDeck();
-		Assert.assertEquals(game.getDeckSize(), 21);
+		Assert.assertEquals(21, game.getDeckSize());
 		Assert.assertEquals(6, game.getPlayersTot());
 		Assert.assertEquals(6, game.getWeaponsTot());
 		Assert.assertEquals(9, game.getRoomTot());

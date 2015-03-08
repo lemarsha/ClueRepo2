@@ -13,6 +13,12 @@ public class Card {
 		this.name = name;
 	}
 	
+	public Card(String name, cardType cardtype) {
+		super();
+		this.name = name;
+		this.cardtype = cardtype;
+	}
+
 	public void setcardType(cardType c) {
 		this.cardtype = c;
 	}
