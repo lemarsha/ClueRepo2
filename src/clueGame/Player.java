@@ -21,42 +21,34 @@ public class Player {
 		this.location = bd;
 	}
 	
-
 	public Player() {
 		// TODO Auto-generated constructor stub
 		super();
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public String getColor() {
 		return color;
 	}
-
 
 	public void setColor(String color) {
 		this.color = color;
 	}
 
-
 	public BoardCell getLocation() {
 		return location;
 	}
 
-
 	public BoardCell setLocation(String x, String y) {
 		return null;
 	}
-
 
 	public ArrayList<Card> getHand() {
 		return hand;
@@ -70,9 +62,7 @@ public class Player {
 		hand.add(c);
 	}
 
-
 	public boolean disproveSuggestion(Card c) {
-		
 		return false;
 	}
 }

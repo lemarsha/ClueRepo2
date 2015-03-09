@@ -20,7 +20,7 @@ public class ClueGame {
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
-	private static Solution victory = new Solution(); 
+	public static Solution victory = new Solution(); 
 	private Board b;
 
 	public ClueGame(String layoutFile, String legendFile, String cardFile) {
@@ -196,7 +196,17 @@ public class ClueGame {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
+	
+	public void handleSuggestion(String perp, String loc, String wep, Player accapo){
+		
+	}
+	
+	public boolean checkAccusation(Solution solut) {
+		
+		
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
