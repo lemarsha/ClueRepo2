@@ -202,7 +202,8 @@ public class ClueGame {
 	}
 	
 	public boolean checkAccusation(Solution solut) {
-		
+		if(solut.person.equals(victory.person) && solut.place.equals(victory.place)
+				&& solut.weapon.equals(victory.weapon)) return true;
 		
 		return false;
 	}

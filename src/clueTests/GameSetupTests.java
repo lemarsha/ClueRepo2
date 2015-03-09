@@ -61,12 +61,18 @@ public class GameSetupTests {
 		
 	}
 	
+	//This test also loads for the card.txt file
 	@Test
 	public void loadCards() {
+		//Checks that all cards are read in
 		Assert.assertEquals(21, game.getDeckSize());
+		
+		//Checks proper totals of cards are read
 		Assert.assertEquals(6, game.getPlayersTot());
 		Assert.assertEquals(6, game.getWeaponsTot());
 		Assert.assertEquals(9, game.getRoomTot());
+		
+		//Make sure it contains an element we know it true
 		ArrayList<Card> decky = game.getDeck();
 		Card c = new Card("Tupac", Card.cardType.PERSON);
 		Assert.assertTrue(decky.contains(c));
@@ -77,11 +83,14 @@ public class GameSetupTests {
 		
 	}
 
+	//Tests dealing all the cards to the players in random order
 	@Test
 	public void dealTest() {
+		//Checks the size of remaining deck after the shuffle
 		game.deal();
 		Assert.assertEquals(0, game.getDeckSize());
 		
+		//Makes sure size of player hands are relatively the same
 		ArrayList<Player> parr = game.getPlayers();
 		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(5).getHandSize()));
 		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(4).getHandSize()));
@@ -89,6 +98,7 @@ public class GameSetupTests {
 		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(2).getHandSize()));
 		Assert.assertTrue(2>(parr.get(0).getHandSize() - parr.get(1).getHandSize()));
 		
+		//Checks that no player has two of the same cards
 		Card c = new Card("Tupac", Card.cardType.PERSON);
 		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(1).getHand().contains(c));
 		Assert.assertFalse(parr.get(0).getHand().contains(c) && parr.get(2).getHand().contains(c));

@@ -21,6 +21,7 @@ public class GameActionTests {
 		board.calcAdjacencies();
 	}
 	
+	//Tests that an accusation can be checked against the real solution
 	@Test
 	public void accusation() {
 		//Temp public victory to test for the accusation
@@ -28,13 +29,15 @@ public class GameActionTests {
 		game.victory.place = "Library";
 		game.victory.weapon = "Ak-47";
 		
-		//Temperary guess for the solution
+		//Temperary guess for the solution, all correct: true
 		Solution temp = new Solution();
 		temp.person = "Tupac";
 		temp.place = "Library";
 		temp.weapon="Ak-47";
 		Assert.assertTrue(game.checkAccusation(temp));
 		
+		
+		//Tests if it fails if one portion of the solution is wrong
 		temp.weapon="shank";
 		Assert.assertFalse(game.checkAccusation(temp));
 		
