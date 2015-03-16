@@ -16,6 +16,10 @@ public abstract class BoardCell {
 		this.symbol = x;
 	}
 	
+	public BoardCell() {
+		// TODO Auto-generated constructor stub
+	}
+
 	abstract public boolean isWalkway();
 	abstract public boolean isRoom();
 	abstract public boolean isDoorway();

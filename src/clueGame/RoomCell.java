@@ -24,6 +24,11 @@ public class RoomCell extends BoardCell{
 		symbol = Symbol.charAt(0);
 	}
 	
+	public RoomCell() {
+		// TODO Auto-generated constructor stub
+		super();
+	}
+
 	public boolean isWalkway() {
 		return false;
 	}
