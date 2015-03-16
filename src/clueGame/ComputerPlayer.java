@@ -9,7 +9,7 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void pickLocation(Set<BoardCell> targs){
-		
+	public BoardCell pickLocation(Set<BoardCell> targs){
+		return null;
 	}
 }

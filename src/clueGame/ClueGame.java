@@ -208,6 +208,15 @@ public class ClueGame {
 		return false;
 	}
 	
+	public void playerMovable(Player playa) {
+		Set<BoardCell> locations = new HashSet<BoardCell>();
+		Random rng = new Random();
+		int i = rng.nextInt(6) +1;
+		System.out.println(i);
+		b.calcTargets(playa.getLocation().getRow(), playa.getLocation().getColumn(),i);
+		locations = b.getTargets();
+		
+	}
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
@@ -215,7 +224,5 @@ public class ClueGame {
 		RoomCell r = b.getRoomCellAt(31, 10);
 		System.out.println(r.isDoorway());
 	}
-
-
 
 }
