@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -12,13 +13,12 @@ public class ComputerPlayer extends Player {
 	}
 
 	public BoardCell pickLocationCOM(Set<BoardCell> targs){
-		boolean status = false;
-		BoardCell tripCell = new RoomCell();
 		
-		for (BoardCell cells : targs){
-			if(!cells.equals(lastRoom)) {
-				status = true;
-				tripCell = cells;
+		
+		for (Iterator<BoardCell> iterator= targs.iterator(); iterator.hasNext();){
+			BoardCell cells = iterator.next();
+			if(cells.equals(lastRoom)) {
+				iterator.remove();
 			}
 			else if(cells.isRoom()) {
 				//lastRoom = (RoomCell)cells;
@@ -26,7 +26,7 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		
-		if(status) targs.remove(tripCell);
+		
 		Random rng = new Random();
 		int i = rng.nextInt(targs.size());
 		int item = 0;
