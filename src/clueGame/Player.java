@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 public abstract class Player {
@@ -63,7 +64,30 @@ public abstract class Player {
 	}
 
 	public Card disproveSuggestion(Card person, Card weapon, Card place) {
-		return null;
+		ArrayList<Card> picks = new ArrayList<Card>();
+		for(Card c : hand) {
+			if(c.equals(person)){
+				picks.add(c);
+			}
+			else if(c.equals(weapon)) {
+				picks.add(c);
+			}
+			else if(c.equals(place)) {
+				picks.add(c);
+			}
+		}
+		
+		if(picks.size()>1) {
+			Random rng = new Random();
+			int i = rng.nextInt(picks.size());
+			return picks.get(i);
+		}
+		else if(picks.size() ==1) {
+			return picks.get(0);
+		}
+		else {
+			return null;
+		}
 	}
 	
 	abstract BoardCell pickLocation(Set<BoardCell> targs);

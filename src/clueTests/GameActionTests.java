@@ -40,7 +40,7 @@ public class GameActionTests {
 	}
 	
 	//Tests that an accusation can be checked against the real solution
-	@Test
+/*	@Test
 	public void accusation() {
 		//Temp public victory to test for the accusation
 		game.victory.person = "Tupac";
@@ -181,6 +181,42 @@ public class GameActionTests {
 		
 		//Person is in common
 		assertTrue(l1.equals(playa.disproveSuggestion(person, weapon, l1)));
+	}*/
+	
+	@Test
+	public void sugHandlePartDos () {
+		Player playa = new ComputerPlayer();
+		playa.addToHand(p1);
+		playa.addToHand(w1);
+		playa.addToHand(l1);
+		
+		
+		int plays = 0;
+		int weps = 0;
+		int locs = 0;
+		
+		for(int i=0;i<100;i++) {
+			Card check= new Card(); 
+			check=playa.disproveSuggestion(p1, w1, l1);
+			
+			if(p1.equals(check)) {
+					plays++;
+			}
+			else if(w1.equals(check)){
+				weps++;
+			}
+			else if(l1.equals(check)) {
+				locs++;
+			}
+			else
+				fail("Invalid choice!");
+		}
+		
+		assertTrue(100 ==(plays+locs+weps));
+		assertTrue(plays>10);
+		assertTrue(locs>10);
+		assertTrue(weps>10);
 	}
+	
 }
 

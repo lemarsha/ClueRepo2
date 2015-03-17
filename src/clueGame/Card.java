@@ -19,6 +19,10 @@ public class Card {
 		this.cardtype = cardtype;
 	}
 
+	public Card() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setcardType(cardType c) {
 		this.cardtype = c;
 	}
