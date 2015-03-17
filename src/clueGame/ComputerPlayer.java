@@ -12,7 +12,13 @@ public class ComputerPlayer extends Player {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BoardCell pickLocationCOM(Set<BoardCell> targs){
+	public ComputerPlayer() {
+		super();
+	}
+	
+
+	@Override
+	public BoardCell pickLocation(Set<BoardCell> targs){
 		
 		
 		for (Iterator<BoardCell> iterator= targs.iterator(); iterator.hasNext();){
@@ -37,6 +43,6 @@ public class ComputerPlayer extends Player {
 
 		return null;
 	}
-
+	
 
 }

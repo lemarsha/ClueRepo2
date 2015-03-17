@@ -1,8 +1,9 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.Set;
 
-public class Player {
+public abstract class Player {
 	private String name;
 	private String color;
 	private BoardCell location;
@@ -22,7 +23,6 @@ public class Player {
 	}
 	
 	public Player() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
 
@@ -62,7 +62,9 @@ public class Player {
 		hand.add(c);
 	}
 
-	public boolean disproveSuggestion(Card c) {
-		return false;
+	public Card disproveSuggestion(Card person, Card weapon, Card place) {
+		return null;
 	}
+	
+	abstract BoardCell pickLocation(Set<BoardCell> targs);
 }

@@ -142,7 +142,7 @@ public class ClueGame {
 		victory.weapon = c.getName();
 		
 		int playerGetCard=0;
-		Player p = new Player();
+		Player p = new ComputerPlayer();
 		while(deck.size()>0) {
 			i = rng.nextInt(deck.size());
 			c = deck.get(i);
@@ -197,8 +197,11 @@ public class ClueGame {
 		return players;
 	}
 	
-	public void handleSuggestion(String perp, String loc, String wep, Player accapo){
+	public void handleSuggestion(Card perp, Card loc, Card wep, Player accplaya){
 		
+		for(int i =0; i< players.size(); i ++) {
+			System.out.println(players.get(i));
+		}
 	}
 	
 	public boolean checkAccusation(Solution solut) {
@@ -208,15 +211,15 @@ public class ClueGame {
 		return false;
 	}
 	
-	public void playerMovable(Player playa) {
+	/*public void playerMovable(Player playa) {
 		Set<BoardCell> locations = new HashSet<BoardCell>();
 		Random rng = new Random();
 		int i = rng.nextInt(6) +1;
 		System.out.println(i);
 		b.calcTargets(playa.getLocation().getRow(), playa.getLocation().getColumn(),i);
 		locations = b.getTargets();
-		
-	}
+	}*/
+	
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();

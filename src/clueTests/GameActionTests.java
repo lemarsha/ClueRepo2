@@ -1,9 +1,13 @@
 package clueTests;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clueGame.*;
@@ -12,6 +16,7 @@ public class GameActionTests {
 	
 	private static Board board;
 	private static ClueGame game;
+	private static Card person,weapon,place,p1,p2,w1,w2,l1,l2;
 	
 	@Before
 	public void setUp() {
@@ -19,6 +24,19 @@ public class GameActionTests {
 		game.loadConfigFiles();
 		board = game.getBoard();
 		board.calcAdjacencies();
+	}
+	
+	@BeforeClass
+	public static void makeCards() {
+		person = new Card("Nikki Manaj", Card.cardType.PERSON);
+		p1 = new Card("Tyrone", Card.cardType.PERSON);
+		p2 = new Card("ChickenMan", Card.cardType.PERSON);
+		weapon = new Card("Shank", Card.cardType.WEAPON);
+		w1 = new Card("Sub Machine Gun", Card.cardType.WEAPON);
+		w2 = new Card("Lego", Card.cardType.WEAPON);
+		place = new Card("Library", Card.cardType.ROOM);
+		l1 = new Card("Billiard Room", Card.cardType.ROOM);
+		l2 = new Card("Tree-House", Card.cardType.ROOM);
 	}
 	
 	//Tests that an accusation can be checked against the real solution
@@ -54,7 +72,8 @@ public class GameActionTests {
 	//amount of steps, while keeping in mind what rooms it was just in
 	//to play the game more effectively
 	@Test
-		public void testTargetRandomSelection() {
+	public void testTargetRandomSelection() {
+
 			ComputerPlayer player = new ComputerPlayer("CRAIDER", "Crimson","21","11" );
 			// Pick a location with no rooms in target, just three targets
 			board.calcTargets(21, 11, 2);
@@ -63,7 +82,7 @@ public class GameActionTests {
 			int loc_15_1Tot = 0;
 			// Run the test 100 times
 			for (int i=0; i<100; i++) {
-				BoardCell selected = player.pickLocationCOM(board.getTargets());
+				BoardCell selected = player.pickLocation(board.getTargets());
 				if (selected == board.getCellAt(19,11))
 					loc_12_0Tot++;
 				else if (selected == board.getCellAt(20,12))
@@ -89,7 +108,7 @@ public class GameActionTests {
 			loc_15_1Tot = 0;
 			// Run the test 100 times
 			for (int i=0; i<100; i++) {
-				BoardCell selected = player.pickLocationCOM(board.getTargets());
+				BoardCell selected = player.pickLocation(board.getTargets());
 				if (selected == board.getCellAt(3,0))
 					loc_12_0Tot++;
 				else
@@ -116,7 +135,7 @@ public class GameActionTests {
 			// Run the test 100 times
 			for (int i=0; i<100; i++) {
 				
-				BoardCell selected = player.pickLocationCOM(board.getTargets());
+				BoardCell selected = player.pickLocation(board.getTargets());
 				if (selected == board.getCellAt(7,9))
 					loc_12_0Tot++;
 				else if (selected == board.getCellAt(9,9))
@@ -139,5 +158,29 @@ public class GameActionTests {
 			assertTrue(loc_4_1Tot > 2);
 			assertTrue(loc_5_1Tot==0);
 	}	
+	
+	@Test
+	public void suggestionHandling() {
+		//Making a player and adding cards to the hand
+		Player playa = new ComputerPlayer();
+		playa.addToHand(p1);
+		playa.addToHand(p2);
+		playa.addToHand(w1);
+		playa.addToHand(w2);
+		playa.addToHand(l1);
+		playa.addToHand(l2);
+		
+		//No cards are in common
+		assertTrue(null == playa.disproveSuggestion(person, weapon, place));
+		
+		//Person is in common
+		assertTrue(p1.equals(playa.disproveSuggestion(p1, weapon, place)));
+		
+		//Weapom is in common
+		assertTrue(w1.equals(playa.disproveSuggestion(person, w1, place)));
+		
+		//Person is in common
+		assertTrue(l1.equals(playa.disproveSuggestion(person, weapon, l1)));
+	}
 }
 
