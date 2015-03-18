@@ -264,7 +264,7 @@ public class GameActionTests {
 		game.handleSuggestion(p1, l2, w4, playaList.get(0));
 		testList = game.getProof();
 		assertTrue(p1.equals(testList.get(0)));
-		assertTrue(p2.equals(testList.get(1)));
+		assertTrue(l2.equals(testList.get(1)));
 		assertTrue(testList.size() == 2);
 		
 		

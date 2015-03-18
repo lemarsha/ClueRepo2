@@ -207,9 +207,15 @@ public class ClueGame {
 	}
 	
 	public void handleSuggestion(Card perp, Card loc, Card wep, Player accplaya){
-		
+		proof.clear();
+		Card c = new Card();
 		for(int i =0; i< players.size(); i ++) {
-			
+			Player p = players.get(i);
+			if(!p.getName().equals(accplaya.getName())){
+				c = p.disproveSuggestion(perp, wep, loc);
+				if(!(c==null))
+					proof.add(c);
+			}
 		}
 	}
 	
