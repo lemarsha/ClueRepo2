@@ -18,7 +18,11 @@ public class ClueGame {
 	private Map<Character,String> rooms = null;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> proof = new ArrayList<Card>();
+	private ArrayList<Card> seenCards = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Card> people = new ArrayList<Card>();
+	private ArrayList<Card> weapons = new ArrayList<Card>();
+	private ArrayList<Card> locations = new ArrayList<Card>();
 	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
 	public static Solution victory = new Solution(); 
@@ -64,12 +68,14 @@ public class ClueGame {
 				String s = in.nextLine();
 				Card c = new Card(s, Card.cardType.ROOM);
 				deck.add(c);
+				locations.add(c);
 				totalRooms++;
 			}
 			else {
 				String s = in.nextLine();
 				Card c = new Card(s, Card.cardType.WEAPON);
 				deck.add(c);
+				weapons.add(c);
 				totalWeapons++;
 			}
 			counter++;
@@ -97,6 +103,7 @@ public class ClueGame {
 			players.add(p);
 			Card c = new Card(pStat[0], Card.cardType.PERSON);
 			deck.add(c);
+			people.add(c);
 		}
 	}
 
@@ -198,6 +205,14 @@ public class ClueGame {
 		return players;
 	}
 	
+	public ArrayList<Card> getPeople() {
+		return people;
+	}
+	
+	public ArrayList<Card> getWeapons() {
+		return weapons;
+	}
+	
 	public ArrayList<Card> getProof() {
 		return proof;
 	}
@@ -213,8 +228,11 @@ public class ClueGame {
 			Player p = players.get(i);
 			if(!p.getName().equals(accplaya.getName())){
 				c = p.disproveSuggestion(perp, wep, loc);
-				if(!(c==null))
+				if(!(c==null)){
 					proof.add(c);
+					if(!(c.getcardType() == Card.cardType.ROOM))
+						seenCards.add(c);
+				}
 			}
 		}
 	}

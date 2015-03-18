@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class HumanPlayer extends Player {
@@ -14,4 +15,13 @@ public class HumanPlayer extends Player {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

@@ -1,5 +1,6 @@
 package clueGame;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
@@ -42,6 +43,36 @@ public class ComputerPlayer extends Player {
 		}
 
 		return null;
+	}
+
+	@Override
+	ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
+		
+		ArrayList<Card> returnList = new ArrayList<Card>();
+		ArrayList<Card> peopleSelection = new ArrayList<Card>();
+		ArrayList<Card> weaponSelection = new ArrayList<Card>();
+		returnList.add(local);
+		
+		for(Card c: allPeople) {
+			if(!allSeen.contains(c) || !hand.contains(c)){
+				peopleSelection.add(c);
+			}
+		}
+		
+		for(Card c: allWeapons) {
+			if(!allSeen.contains(c) || !hand.contains(c)){
+				weaponSelection.add(c);
+			}
+		}
+		
+		Random rng = new Random();
+		int i = rng.nextInt(peopleSelection.size());
+		returnList.add(peopleSelection.get(i));
+		i = rng.nextInt(weaponSelection.size());
+		returnList.add(weaponSelection.get(i));
+		
+		return returnList;
 	}
 	
 

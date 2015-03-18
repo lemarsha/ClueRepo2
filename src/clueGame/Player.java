@@ -8,7 +8,7 @@ public abstract class Player {
 	private String name;
 	private String color;
 	private BoardCell location;
-	private ArrayList<Card> hand = new ArrayList<Card>();
+	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
 	
 	public Player(String name, String color, String x, String y) {
@@ -91,4 +91,7 @@ public abstract class Player {
 	}
 	
 	abstract BoardCell pickLocation(Set<BoardCell> targs);
+	
+	abstract ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+			ArrayList<Card> allPeople, ArrayList<Card> allWeapons);
 }

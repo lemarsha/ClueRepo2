@@ -269,5 +269,10 @@ public class GameActionTests {
 		
 		
 	}
+	
+	@Test
+	public void ComputerMakesSuggestion() {
+		fail();
+	}
 }
 
