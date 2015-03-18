@@ -272,7 +272,53 @@ public class GameActionTests {
 	
 	@Test
 	public void ComputerMakesSuggestion() {
-		fail();
+		ArrayList<Card> testListPerson = new ArrayList<Card>();
+		ArrayList<Card> testListWeapons = new ArrayList<Card>();
+		ArrayList<Card> testListAll = new ArrayList<Card>();
+		testListPerson.add(person);testListPerson.add(p1);testListPerson.add(p2);
+		testListPerson.add(p3);testListPerson.add(p4);
+		testListWeapons.add(weapon);testListWeapons.add(w1);testListWeapons.add(w2);
+		testListWeapons.add(w3);testListWeapons.add(w4);
+		
+		testListAll.add(person);testListAll.add(weapon);testListAll.add(p1);
+		testListAll.add(p2);testListAll.add(p3);testListAll.add(w1);
+		testListAll.add(w2);
+		
+		
+		//Player prepared for a single option
+		Player player = new ComputerPlayer("Tyrone", "Red", "12","12");
+		player.addToHand(p3);
+		player.addToHand(w3);
+		
+		ArrayList<Card> ans = player.makeSuggestion(l1, testListAll, testListPerson,
+				testListWeapons);
+		assertTrue(ans.contains(l1));
+		assertTrue(ans.contains(p4));
+		assertTrue(ans.contains(w4));
+		
+		
+		//Testing that the computer can make a guess from a list
+		//with correct choices and random possibilities
+		testListAll.remove(0);testListAll.remove(1);
+		
+		int pc = 0;
+		int p1c = 0;
+		int p4c = 0;
+		for(int i =0;i<100;i++){
+			 ans = player.makeSuggestion(l1, testListAll, testListPerson,
+					testListWeapons);
+			 
+			 if(ans.contains(person)) pc++;
+			 else if(ans.contains(p1)) p1c++;
+			 else if(ans.contains(p4))p4c++;
+			 else
+				 fail("FAIL");
+		}
+		
+		assertTrue(100 == pc+p1c+p4c);
+		assertTrue(pc>10);
+		assertTrue(p1c>10);
+		assertTrue(p4c>10);
 	}
 }
 

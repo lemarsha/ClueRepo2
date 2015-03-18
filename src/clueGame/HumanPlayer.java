@@ -11,13 +11,13 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	BoardCell pickLocation(Set<BoardCell> targs) {
+	public BoardCell pickLocation(Set<BoardCell> targs) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
 		// TODO Auto-generated method stub
 		return null;

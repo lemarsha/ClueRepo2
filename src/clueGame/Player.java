@@ -90,8 +90,8 @@ public abstract class Player {
 		}
 	}
 	
-	abstract BoardCell pickLocation(Set<BoardCell> targs);
+	public abstract BoardCell pickLocation(Set<BoardCell> targs);
 	
-	abstract ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public abstract ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons);
 }

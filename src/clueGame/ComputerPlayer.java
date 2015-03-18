@@ -46,7 +46,7 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
 		
 		ArrayList<Card> returnList = new ArrayList<Card>();
@@ -55,13 +55,13 @@ public class ComputerPlayer extends Player {
 		returnList.add(local);
 		
 		for(Card c: allPeople) {
-			if(!allSeen.contains(c) || !hand.contains(c)){
+			if(!allSeen.contains(c) && !hand.contains(c)){
 				peopleSelection.add(c);
 			}
 		}
 		
 		for(Card c: allWeapons) {
-			if(!allSeen.contains(c) || !hand.contains(c)){
+			if(!allSeen.contains(c) && !hand.contains(c)){
 				weaponSelection.add(c);
 			}
 		}
