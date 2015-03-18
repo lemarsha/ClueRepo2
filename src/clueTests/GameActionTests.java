@@ -16,7 +16,7 @@ public class GameActionTests {
 	
 	private static Board board;
 	private static ClueGame game;
-	private static Card person,weapon,place,p1,p2,w1,w2,l1,l2;
+	private static Card person,weapon,place,p1,p2,p3,p4,w1,w2,w3,w4,l1,l2,l3,l4;
 	
 	@Before
 	public void setUp() {
@@ -31,16 +31,22 @@ public class GameActionTests {
 		person = new Card("Nikki Manaj", Card.cardType.PERSON);
 		p1 = new Card("Tyrone", Card.cardType.PERSON);
 		p2 = new Card("ChickenMan", Card.cardType.PERSON);
+		p3 = new Card("Eugene", Card.cardType.PERSON);
+		p4 = new Card("Gates", Card.cardType.PERSON);
 		weapon = new Card("Shank", Card.cardType.WEAPON);
 		w1 = new Card("Sub Machine Gun", Card.cardType.WEAPON);
 		w2 = new Card("Lego", Card.cardType.WEAPON);
+		w3 = new Card("Penny", Card.cardType.WEAPON);
+		w4 = new Card("Jobs", Card.cardType.WEAPON);
 		place = new Card("Library", Card.cardType.ROOM);
 		l1 = new Card("Billiard Room", Card.cardType.ROOM);
 		l2 = new Card("Tree-House", Card.cardType.ROOM);
+		l3 = new Card("Basement", Card.cardType.ROOM);
+		l4 = new Card("Upstairs", Card.cardType.ROOM);
 	}
 	
 	//Tests that an accusation can be checked against the real solution
-/*	@Test
+	@Test
 	public void accusation() {
 		//Temp public victory to test for the accusation
 		game.victory.person = "Tupac";
@@ -181,7 +187,7 @@ public class GameActionTests {
 		
 		//Person is in common
 		assertTrue(l1.equals(playa.disproveSuggestion(person, weapon, l1)));
-	}*/
+	}
 	
 	@Test
 	public void sugHandlePartDos () {
@@ -218,5 +224,50 @@ public class GameActionTests {
 		assertTrue(weps>10);
 	}
 	
+	@Test
+	public void handleSuggestionTest () {
+		ArrayList<Player> playaList = new ArrayList<Player>();
+		Player com= new ComputerPlayer("Eugene", "Yellow", "2","10");
+		com.addToHand(person);com.addToHand(place);com.addToHand(weapon);
+		playaList.add(com);
+		
+		com = new ComputerPlayer("Tyrone", "Red", "15", "21");
+		com.addToHand(l1); com.addToHand(w1); com.addToHand(p1);
+		playaList.add(com);
+		
+		com = new ComputerPlayer("NiKki Manaj", "Green", "13", "10");
+		com.addToHand(l2); com.addToHand(w2); com.addToHand(p2);
+		playaList.add(com);
+		
+		com = new HumanPlayer("ChickenMan", "Blue", "20", "7");
+		com.addToHand(l3); com.addToHand(w3); com.addToHand(p3);
+		playaList.add(com);
+		
+		game.setPlayers(playaList);
+		
+		//Player suggestion, only he can disprove
+		game.handleSuggestion(person, place, weapon, playaList.get(0));
+		ArrayList<Card> testList = game.getProof();
+		assertTrue(testList.size() == 0);
+		
+		//No Player can disprove
+		game.handleSuggestion(p4, l4, w4, playaList.get(0));
+		testList = game.getProof();
+		assertTrue(testList.size() == 0);
+		
+		//Only Human can disprove and is the farthest away
+		game.handleSuggestion(p3, l4, w4, playaList.get(0));
+		testList = game.getProof();
+		assertTrue(testList.contains(p3));
+		
+		//Testing the order of the suggestion check
+		game.handleSuggestion(p1, l2, w4, playaList.get(0));
+		testList = game.getProof();
+		assertTrue(p1.equals(testList.get(0)));
+		assertTrue(p2.equals(testList.get(1)));
+		assertTrue(testList.size() == 2);
+		
+		
+	}
 }
 

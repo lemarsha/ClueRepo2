@@ -17,6 +17,7 @@ public class ClueGame {
 
 	private Map<Character,String> rooms = null;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<Card> proof = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
 	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
@@ -197,10 +198,18 @@ public class ClueGame {
 		return players;
 	}
 	
+	public ArrayList<Card> getProof() {
+		return proof;
+	}
+	
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+	
 	public void handleSuggestion(Card perp, Card loc, Card wep, Player accplaya){
 		
 		for(int i =0; i< players.size(); i ++) {
-			System.out.println(players.get(i));
+			
 		}
 	}
 	
