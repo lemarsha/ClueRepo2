@@ -256,9 +256,9 @@ public class ClueGame {
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
-		Board b = game.getBoard();
-		RoomCell r = b.getRoomCellAt(31, 10);
-		System.out.println(r.isDoorway());
+		Board board = game.getBoard();
+		board.calcAdjacencies();
+		
 	}
 
 }

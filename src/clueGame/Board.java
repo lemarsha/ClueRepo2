@@ -147,16 +147,16 @@ public class Board {
 	public int getNumColumns() {
 		return numColumns;
 	}
-
+	
 	//gets the room cell at the specified grid location
-	public RoomCell getRoomCellAt(int row, int col) {
-		BoardCell cell = grid[row][col];
-		if (cell.isRoom()) {
-			return (RoomCell) cell;
+		public RoomCell getRoomCellAt(int row, int col) {
+			BoardCell cell = grid[row][col];
+			if (cell.isRoom()) {
+				return (RoomCell) cell;
+			}
+			return null;
 		}
-		return null;
-	}
-
+	
 	//returns the board cell at the specified grid location
 	public BoardCell getCellAt(int row, int col) {
 		return grid[row][col];
