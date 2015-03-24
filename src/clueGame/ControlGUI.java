@@ -19,7 +19,7 @@ public class ControlGUI extends JFrame {
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Clue Game");
-		setSize(700, 250);
+		setSize(576, 250);
 		JPanel panel = PlayerPanel();
 		panel.setPreferredSize(new Dimension(700, 125));
 		add(panel, BorderLayout.NORTH);

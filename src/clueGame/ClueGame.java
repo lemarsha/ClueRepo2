@@ -1,11 +1,22 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 
 
@@ -246,6 +257,33 @@ public class ClueGame extends JFrame{
 		return false;
 	}
 	
+	private JMenu menu(){
+		JMenu menu = new JMenu("File");
+		menu.add(createFileExitItem());
+		menu.add(createNotesItem());
+		return menu;
+	}
+	private JMenuItem createNotesItem() {
+		JMenuItem item = new JMenuItem("Notes");
+		class MenuItemListener implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
+	
+	private JMenuItem createFileExitItem() {
+		JMenuItem item = new JMenuItem("Exit");
+		class MenuItemListener implements ActionListener{
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		}
+		item.addActionListener(new MenuItemListener());
+		return item;
+	}
 	
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
@@ -254,10 +292,12 @@ public class ClueGame extends JFrame{
 		board.calcAdjacencies();
 		board.setBoardPlayers(players);
 		game.add(board, BorderLayout.CENTER);
-		game.setSize(1100,660);
+		JMenuBar menuBar = new JMenuBar();
+		game.setJMenuBar(menuBar);
+		menuBar.add(game.menu());
+		
+		game.setSize(576,660);
 		game.setVisible(true);
 		
-	}
-			
-
+	}			
 }
