@@ -1,11 +1,15 @@
 package clueGame;
 
 import java.util.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.io.*;
+
+import javax.swing.JPanel;
 
 import clueGame.BoardCell;
 
-public class Board {
+public class Board extends JPanel{
 
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
@@ -14,7 +18,8 @@ public class Board {
 	private String legendFile, layoutFile;
 	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
-	private Set<BoardCell> visited ;
+	private Set<BoardCell> visited;
+	private ArrayList<Player> players;
 
 	//constructor
 	public Board(String layoutFile, String legendFile) {
@@ -247,6 +252,24 @@ public class Board {
 	
 	public Set<BoardCell> getTargets(){
 		return target_cells;
+	}
+	
+	public void setBoardPlayers( ArrayList<Player> players) {
+		this.players = players;
+	}
+
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		for(int i = 0; i < numRows; i++){
+			for(int j=0; j< numColumns; j++) {
+				grid[i][j].draw(g, this);
+			}
+		}
+		
+		for(Player p : players){
+			p.draw(g,this);
+		}
+		
 	}
 }
 

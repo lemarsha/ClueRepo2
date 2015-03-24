@@ -1,12 +1,18 @@
 package clueGame;
 
-public abstract class BoardCell {
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public abstract class BoardCell extends JPanel{
 	
 	private int row, column;
 	private DoorDirection doorDirection;
 	private Character symbol;
 	private boolean isDoorway;
 	private char doorDir;
+	protected final static int ROOM_DIMEN = 25;
+	
 	
 	public BoardCell(int row, int column, String Symbol){
 		super();
@@ -35,6 +41,7 @@ public abstract class BoardCell {
 		return column;
 	}
 
+	public abstract void draw(Graphics g, Board board);
 
 	@Override
 	public int hashCode() {

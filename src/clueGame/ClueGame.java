@@ -1,12 +1,15 @@
 package clueGame;
 
+import java.awt.BorderLayout;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
+import javax.swing.JFrame;
 
 
-public class ClueGame {
+
+public class ClueGame extends JFrame{
 
 	private static final String LAYOUTFILE = "boardLayout.csv";
 	private static final String LEGENDFILE = "legend.txt";
@@ -16,7 +19,7 @@ public class ClueGame {
 	//private static final String LEGENDFILE = "ClueLegend.txt";
 
 	private Map<Character,String> rooms = null;
-	private ArrayList<Player> players = new ArrayList<Player>();
+	private static ArrayList<Player> players = new ArrayList<Player>();
 	private ArrayList<Card> proof = new ArrayList<Card>();
 	private ArrayList<Card> seenCards = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
@@ -187,7 +190,6 @@ public class ClueGame {
 	public int  getDeckSize() {
 		return deck.size();
 	}
-	
 	public int getPlayersTot() {
 		return totalPlayers;
 	}
@@ -244,21 +246,18 @@ public class ClueGame {
 		return false;
 	}
 	
-	/*public void playerMovable(Player playa) {
-		Set<BoardCell> locations = new HashSet<BoardCell>();
-		Random rng = new Random();
-		int i = rng.nextInt(6) +1;
-		System.out.println(i);
-		b.calcTargets(playa.getLocation().getRow(), playa.getLocation().getColumn(),i);
-		locations = b.getTargets();
-	}*/
 	
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
 		Board board = game.getBoard();
 		board.calcAdjacencies();
+		board.setBoardPlayers(players);
+		game.add(board, BorderLayout.CENTER);
+		game.setSize(1100,660);
+		game.setVisible(true);
 		
 	}
+			
 
 }

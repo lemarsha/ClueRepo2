@@ -1,5 +1,10 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
 public class WalkwayCell extends BoardCell{
 	
 	private int row, column;
@@ -56,4 +61,13 @@ public class WalkwayCell extends BoardCell{
 		return super.equals(obj);
 	}
 
+	@Override
+	public void draw(Graphics g, Board board) {
+		// TODO Auto-generated method stub
+		//super.paintComponent(g);
+		g.setColor(Color.YELLOW);
+		g.fillRect(column*ROOM_DIMEN, row*ROOM_DIMEN,ROOM_DIMEN,ROOM_DIMEN);
+		g.setColor(Color.BLACK);
+		g.drawRect(column*ROOM_DIMEN,row*ROOM_DIMEN,ROOM_DIMEN,ROOM_DIMEN);
+	}
 }

@@ -24,6 +24,7 @@ public class GameActionTests {
 		game.loadConfigFiles();
 		board = game.getBoard();
 		board.calcAdjacencies();
+		
 	}
 	
 	@BeforeClass

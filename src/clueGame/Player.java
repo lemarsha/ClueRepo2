@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
@@ -8,6 +10,8 @@ public abstract class Player {
 	private String name;
 	private String color;
 	private BoardCell location;
+	private static final int PEOPLE_DIMEN = 25;
+	protected int locX, locY;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
 	
@@ -16,9 +20,8 @@ public abstract class Player {
 		this.name = name;
 		this.color = color;
 		
-		int locX, locY;
 		locX = Integer.parseInt(x);
-		locY = Integer.parseInt(y);
+		locY = Integer.parseInt(y); 
 		BoardCell bd = new WalkwayCell(locX,locY, "W");
 		this.location = bd;
 	}
@@ -89,6 +92,19 @@ public abstract class Player {
 			return null;
 		}
 	}
+	
+	public void draw(Graphics g, Board board) {
+		if(color.equals("red")) g.setColor(Color.red);
+		else if(color.equals("green")) g.setColor(Color.GREEN);
+		else if(color.equals("blue")) g.setColor(Color.BLUE);
+		else if(color.equals("white")) g.setColor(Color.white);
+		else if(color.equals("yellow")) g.setColor(Color.orange);
+		else if(color.equals("purple")) g.setColor(Color.MAGENTA);
+		g.fillOval(locY*PEOPLE_DIMEN, locX*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
+		g.setColor(Color.BLACK);
+		g.drawOval(locY*PEOPLE_DIMEN, locX*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
+	}
+	
 	
 	public abstract BoardCell pickLocation(Set<BoardCell> targs);
 	
