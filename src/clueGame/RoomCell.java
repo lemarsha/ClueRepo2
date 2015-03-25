@@ -126,6 +126,8 @@ public class RoomCell extends BoardCell{
 				g.drawString("Library", column*ROOM_DIMEN, row*ROOM_DIMEN);
 			else if(symbol == 'D')
 				g.drawString("Dining Room", column*ROOM_DIMEN, row*ROOM_DIMEN);
+			else if(symbol == 'H')
+				g.drawString("Hall",column*ROOM_DIMEN, row*ROOM_DIMEN);
 			else if(symbol == 'O')
 				g.drawString("Lounge", column*ROOM_DIMEN, row*ROOM_DIMEN);
 		}

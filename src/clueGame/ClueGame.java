@@ -37,6 +37,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> people = new ArrayList<Card>();
 	private ArrayList<Card> weapons = new ArrayList<Card>();
 	private ArrayList<Card> locations = new ArrayList<Card>();
+	private Notes notes;
 	private String layoutFile, legendFile, cardFile;
 	private int totalPlayers, totalWeapons, totalRooms;
 	public static Solution victory = new Solution(); 
@@ -267,7 +268,8 @@ public class ClueGame extends JFrame{
 		JMenuItem item = new JMenuItem("Notes");
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
-				
+				notes = new Notes(people,weapons,locations);
+				notes.setVisible(true);
 			}
 		}
 		item.addActionListener(new MenuItemListener());
