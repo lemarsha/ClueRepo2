@@ -124,7 +124,6 @@ public class ClueGame extends JFrame{
 
 	public ArrayList<Player> returnPlayers() {
 		return players;
-
 	}
 
 	public void loadRoomConfig() {
@@ -143,7 +142,6 @@ public class ClueGame extends JFrame{
 
 	public Board getBoard() {
 		return b;
-
 	}
 
 	public Map<Character, String> getRooms() {

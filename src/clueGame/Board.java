@@ -1,7 +1,6 @@
 package clueGame;
 
 import java.util.*;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.io.*;
 
@@ -13,8 +12,8 @@ public class Board extends JPanel{
 
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
-	BoardCell[][] grid;
-	Set<BoardCell> targets;
+	private BoardCell[][] grid;
+	private Set<BoardCell> targets;
 	private String legendFile, layoutFile;
 	private Map<BoardCell,LinkedList<BoardCell>> adjacent_cells;
 	private Set<BoardCell> target_cells;
@@ -227,13 +226,15 @@ public class Board extends JPanel{
 		}
 	}
 
+	//calculate the targets
 	public void calcTargets(int row, int col, int numSteps){
 		visited = new HashSet<BoardCell>();
 		target_cells = new HashSet<BoardCell>();
 		visited.add(grid[row][col]);
 		findAllTargets(grid[row][col], numSteps);
 	}
-
+	
+	//find all the targets a roll can move you too
 	public void findAllTargets(BoardCell thisCell, int numSteps) {
 		LinkedList<BoardCell> current_adj_cells = new LinkedList<BoardCell>();
 		current_adj_cells = adjacent_cells.get(grid[thisCell.getRow()][thisCell.getColumn()]);
