@@ -60,6 +60,7 @@ public class ClueGame extends JFrame{
 	public void loadConfigFiles() {
 		loadRoomConfig();
 		loadCards();
+		
 	}
 
 	public void loadCards() {
@@ -288,16 +289,5 @@ public class ClueGame extends JFrame{
 	public static void main(String[] args) {
 		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
 		game.loadConfigFiles();
-		Board board = game.getBoard();
-		board.calcAdjacencies();
-		board.setBoardPlayers(players);
-		game.add(board, BorderLayout.CENTER);
-		JMenuBar menuBar = new JMenuBar();
-		game.setJMenuBar(menuBar);
-		menuBar.add(game.menu());
-		
-		game.setSize(576,660);
-		game.setVisible(true);
-		
 	}			
 }
