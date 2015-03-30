@@ -1,0 +1,130 @@
+Before snippet of code: main function for cluegame
+
+public static void main(String[] args) {
+		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
+		game.loadConfigFiles();
+		Board board = game.getBoard();
+		board.calcAdjacencies();
+		board.setBoardPlayers(players);
+		game.add(board, BorderLayout.CENTER);
+		JMenuBar menuBar = new JMenuBar();
+		game.setJMenuBar(menuBar);
+		menuBar.add(game.menu());
+		
+		game.setSize(576,660);
+		game.setVisible(true);
+		
+	}			
+
+Before: loadBoardConfig
+
+public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
+		testBoardConfig();
+		testLegend();
+		getRooms();
+		grid = new BoardCell[numRows][numColumns];
+		FileReader reader = null;
+		Scanner in = null;
+		try {
+			reader = new FileReader(layoutFile);
+			in = new Scanner(reader);
+		}catch (FileNotFoundException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		for (int i = 0; i<numRows; ++i) {
+			String line = in.nextLine();
+			String[] legend = line.split(",");
+			for (int j = 0; j<legend.length; ++j) {
+				if (legend[j].charAt(0) == 'W') {
+					WalkwayCell w = new WalkwayCell(i,j,legend[j]);
+					grid[i][j] = w;
+				} else if (!rooms.containsKey(legend[j].charAt(0))){
+					throw new BadConfigFormatException("Bad room: doesn't exist in legend");
+				} else if (legend[j].length() ==2){
+					if (legend[j].charAt(1)=='R'||legend[j].charAt(1)=='L'||legend[j].charAt(1)=='U'||legend[j].charAt(1)=='D'||legend[j].charAt(1)=='N') {
+						RoomCell r = new RoomCell(i,j,legend[j]);
+						grid[i][j] = r;
+					}else {
+						throw new BadConfigFormatException("Bad door: direction does not exist");
+					}
+				} else {
+					RoomCell r = new RoomCell(i,j,legend[j]);
+					grid[i][j] = r;
+				}
+			}
+		}
+	}
+
+
+After: loadBoardConfig
+
+public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException{
+		testBoardConfig();
+		testLegend();
+		getRooms();
+		grid = new BoardCell[numRows][numColumns];
+		FileReader reader = null;
+		Scanner in = null;
+		WalkwayCell w = null;
+		RoomCell r = null;
+		try {
+			reader = new FileReader(layoutFile);
+			in = new Scanner(reader);
+		}catch (FileNotFoundException e) {
+			System.out.println(e.getLocalizedMessage());
+		}
+		for (int i = 0; i<numRows; ++i) {
+			String line = in.nextLine();
+			String[] legend = line.split(",");
+			for (int j = 0; j<legend.length; ++j) {
+				if (legend[j].charAt(0) == 'W') {
+					w = new WalkwayCell(i,j,legend[j]);
+					grid[i][j] = w;
+				} else if (!rooms.containsKey(legend[j].charAt(0))){
+					throw new BadConfigFormatException("Bad room: doesn't exist in legend");
+				} else if (legend[j].length() ==2){
+					if (legend[j].charAt(1)=='R'||legend[j].charAt(1)=='L'||legend[j].charAt(1)=='U'||legend[j].charAt(1)=='D'||legend[j].charAt(1)=='N') {
+						r = new RoomCell(i,j,legend[j]);
+						grid[i][j] = r;
+					}else {
+						throw new BadConfigFormatException("Bad door: direction does not exist");
+					}
+				} else {
+					r = new RoomCell(i,j,legend[j]);
+					grid[i][j] = r;
+				}
+			}
+		}
+	}
+
+Changes: took constructors out of loops and added  them above.
+
+Before: CalcAdjacencies
+
+	public void calcAdjacencies() {
+		adjacent_cells = new HashMap<BoardCell,LinkedList<BoardCell>>();
+		for (int i = 0; i<numRows; ++i) {
+			for (int j = 0; j<numColumns; ++j) {
+				LinkedList<BoardCell> adj = new LinkedList<BoardCell>();
+				adj=getAdjList(i,j);
+				adjacent_cells.put(grid[i][j], adj);
+			}
+		}
+	}
+
+After: CalcAdjacencies
+
+	public void calcAdjacencies() {
+		adjacent_cells = new HashMap<BoardCell,LinkedList<BoardCell>>();
+		LinkedList<BoardCell> adj = new LinkedList<BoardCell>();
+		for (int i = 0; i<numRows; ++i) {
+			for (int j = 0; j<numColumns; ++j) {
+				adj=getAdjList(i,j);
+				adjacent_cells.put(grid[i][j], adj);
+			}
+		}
+	}
+
+Changes: moved constructor from loop to outside of loop
+
+

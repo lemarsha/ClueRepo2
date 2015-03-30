@@ -250,8 +250,8 @@ public class ClueGame extends JFrame{
 	}
 	
 	public boolean checkAccusation(Solution solut) {
-		if(solut.person.equals(victory.person) && solut.place.equals(victory.place)
-				&& solut.weapon.equals(victory.weapon)) return true;
+		if(solut.getPerson().equals(victory.getPerson()) && solut.getPlace().equals(victory.getPlace())
+				&& solut.getWeapon().equals(victory.getWeapon())) return true;
 		
 		return false;
 	}
