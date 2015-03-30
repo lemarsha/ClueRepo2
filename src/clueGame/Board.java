@@ -85,7 +85,7 @@ public class Board extends JPanel{
 				firstline = false;
 			}
 			if (legend.length!= numColumns) {
-				throw new BadConfigFormatException("Not consistend columns");
+				throw new BadConfigFormatException("Not consistent columns");
 			}
 		}
 		in.close();
@@ -266,7 +266,6 @@ public class Board extends JPanel{
 				grid[i][j].draw(g, this);
 			}
 		}
-		
 		for(Player p : players){
 			p.draw(g,this);
 		}
