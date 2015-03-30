@@ -219,9 +219,9 @@ public class Board extends JPanel{
 	//creates hash map of all the adjacent cells associated with a board cell
 	public void calcAdjacencies() {
 		adjacent_cells = new HashMap<BoardCell,LinkedList<BoardCell>>();
+		LinkedList<BoardCell> adj = new LinkedList<BoardCell>();
 		for (int i = 0; i<numRows; ++i) {
 			for (int j = 0; j<numColumns; ++j) {
-				LinkedList<BoardCell> adj = new LinkedList<BoardCell>();
 				adj=getAdjList(i,j);
 				adjacent_cells.put(grid[i][j], adj);
 			}
