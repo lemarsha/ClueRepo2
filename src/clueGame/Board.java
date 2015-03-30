@@ -34,6 +34,7 @@ public class Board extends JPanel{
 		grid = new BoardCell[numRows][numColumns];
 		FileReader reader = null;
 		Scanner in = null;
+		WalkwayCell w = null;
 		try {
 			reader = new FileReader(layoutFile);
 			in = new Scanner(reader);
@@ -45,7 +46,7 @@ public class Board extends JPanel{
 			String[] legend = line.split(",");
 			for (int j = 0; j<legend.length; ++j) {
 				if (legend[j].charAt(0) == 'W') {
-					WalkwayCell w = new WalkwayCell(i,j,legend[j]);
+					w = new WalkwayCell(i,j,legend[j]);
 					grid[i][j] = w;
 				} else if (!rooms.containsKey(legend[j].charAt(0))){
 					throw new BadConfigFormatException("Bad room: doesn't exist in legend");
