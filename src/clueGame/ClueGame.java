@@ -154,13 +154,13 @@ public class ClueGame extends JFrame{
 		Random rng = new Random();
 		int i = rng.nextInt(9);
 		Card c = deck.get(i);
-		victory.place = c.getName();
+		victory.setPlace(c.getName());
 		i = rng.nextInt(6) + 9;
 		c = deck.get(i);
-		victory.place = c.getName();
+		victory.setPerson(c.getName());
 		i = rng.nextInt(6)+15;
 		c = deck.get(i);
-		victory.weapon = c.getName();
+		victory.setWeapon(c.getName());
 		
 		int playerGetCard=0;
 		Player p = new ComputerPlayer();
