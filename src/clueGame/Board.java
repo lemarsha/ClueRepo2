@@ -35,6 +35,7 @@ public class Board extends JPanel{
 		FileReader reader = null;
 		Scanner in = null;
 		WalkwayCell w = null;
+		RoomCell r = null;
 		try {
 			reader = new FileReader(layoutFile);
 			in = new Scanner(reader);
@@ -52,13 +53,13 @@ public class Board extends JPanel{
 					throw new BadConfigFormatException("Bad room: doesn't exist in legend");
 				} else if (legend[j].length() ==2){
 					if (legend[j].charAt(1)=='R'||legend[j].charAt(1)=='L'||legend[j].charAt(1)=='U'||legend[j].charAt(1)=='D'||legend[j].charAt(1)=='N') {
-						RoomCell r = new RoomCell(i,j,legend[j]);
+						r = new RoomCell(i,j,legend[j]);
 						grid[i][j] = r;
 					}else {
 						throw new BadConfigFormatException("Bad door: direction does not exist");
 					}
 				} else {
-					RoomCell r = new RoomCell(i,j,legend[j]);
+					r = new RoomCell(i,j,legend[j]);
 					grid[i][j] = r;
 				}
 			}
