@@ -60,7 +60,16 @@ public class ClueGame extends JFrame{
 	public void loadConfigFiles() {
 		loadRoomConfig();
 		loadCards();
+		Board board = getBoard();
+		board.calcAdjacencies();
+		board.setBoardPlayers(players);
+		add(board, BorderLayout.CENTER);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(menu());
 		
+		setSize(576,660);
+		setVisible(true);
 	}
 
 	public void loadCards() {
