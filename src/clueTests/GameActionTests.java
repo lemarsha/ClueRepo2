@@ -50,28 +50,28 @@ public class GameActionTests {
 	@Test
 	public void accusation() {
 		//Temp public victory to test for the accusation
-		game.victory.person = "Tupac";
-		game.victory.place = "Library";
-		game.victory.weapon = "Ak-47";
+		game.victory.setPerson("Tupac");
+		game.victory.setPlace("Library");
+		game.victory.setWeapon("Ak-47");
 		
 		//Temperary guess for the solution, all correct: true
 		Solution temp = new Solution();
-		temp.person = "Tupac";
-		temp.place = "Library";
-		temp.weapon="Ak-47";
+		temp.setPerson("Tupac");
+		temp.setPlace("Library");
+		temp.setWeapon("Ak-47");
 		assertTrue(game.checkAccusation(temp));
 		
 		
 		//Tests if it fails if one portion of the solution is wrong
-		temp.weapon="shank";
+		temp.setWeapon("shank");
 		assertFalse(game.checkAccusation(temp));
 		
-		temp.place = "Kitchen";
-		temp.weapon="Ak-47";
+		temp.setPlace("Kitchen");
+		temp.setWeapon("Ak-47");
 		assertFalse(game.checkAccusation(temp));
 		
-		temp.person = "Nikki Manaj";
-		temp.place = "Library";
+		temp.setPerson("Nikki Manaj");
+		temp.setPlace("Library");
 		assertFalse(game.checkAccusation(temp));
 	}
 
