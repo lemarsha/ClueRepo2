@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class ComputerPlayer extends Player {
+	
 	private RoomCell lastRoom = new RoomCell(9,7,"R");
 
 	public ComputerPlayer(String name, String color, String x, String y) {
@@ -15,6 +16,11 @@ public class ComputerPlayer extends Player {
 
 	public ComputerPlayer() {
 		super();
+	}
+	
+	@Override
+	public String getType() {
+		return "Computer";
 	}
 	
 

@@ -14,7 +14,15 @@ public static void main(String[] args) {
 		game.setSize(576,660);
 		game.setVisible(true);
 		
-	}			
+	}	
+
+After: 
+public static void main(String[] args) {
+		ClueGame game = new ClueGame("boardLayout.csv", "legend.txt", "cards.txt");
+		game.loadConfigFiles();
+	}
+change1: moved jframe construction to load board config
+change2: added calc adjacencies and set board players to load config files method		
 
 Before: loadBoardConfig
 
@@ -97,7 +105,8 @@ public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatExcep
 		}
 	}
 
-Changes: took constructors out of loops and added  them above.
+Change3: took walkway cell constructor out of loops and added it above.
+Change4: took roomcell constructor out of loops and added it above.
 
 Before: CalcAdjacencies
 
@@ -125,6 +134,93 @@ After: CalcAdjacencies
 		}
 	}
 
-Changes: moved constructor from loop to outside of loop
+Change5: moved constructor from loop to outside of loop
+
+Before: Solution class
+
+public class Solution {
+	public String person;
+	public String weapon;
+	public String place;
+	
+	public Solution() {
+		super();
+	}
+}
+
+After: 
+
+public class Solution {
+	private String person;
+	private String weapon;
+	private String place;
+	
+	public Solution() {
+		super();
+	}
+
+	public String getPerson() {
+		return person;
+	}
+
+	public void setPerson(String person) {
+		this.person = person;
+	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(String weapon) {
+		this.weapon = weapon;
+	}
+
+	public String getPlace() {
+		return place;
+	}
+
+	public void setPlace(String place) {
+		this.place = place;
+	}
+	
+	
+}
+
+Change6: changed weapon person and place to private
+Change7: added getters and setters to weapon, person, and place
+
+Before: load config files
+
+public void loadConfigFiles() {
+		loadRoomConfig();
+		loadCards();
+}
+
+after: 
+public void loadConfigFiles() {
+		loadRoomConfig();
+		loadCards();
+		Board board = getBoard();
+		board.calcAdjacencies();
+		board.setBoardPlayers(players);
+		add(board, BorderLayout.CENTER);
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		menuBar.add(menu());
+		
+		setSize(576,660);
+		setVisible(true);
+	}
+
+change8: moved board constructor and calc adjacencies and set board players outside of main method
+change9: moved jframe construction outside of main method
+
+additional changes: made quite a few changes throughout several methods to accomodate the change in the soution class where we made everything private.  Required changing solution.weapon to solution.getWeapon() etc.
+
+
+
+
+
+
 
 

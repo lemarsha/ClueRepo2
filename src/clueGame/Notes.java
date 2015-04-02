@@ -14,7 +14,7 @@ import javax.swing.border.TitledBorder;
 public class Notes extends JDialog{
 	
 	public Notes(ArrayList<Card> people, ArrayList<Card> weps, ArrayList<Card> locs){
-		setSize(400,500);
+		setSize(400,600);
 		setLayout(new GridLayout(3,2));
 		add(generateCheckBox(people, "People"));
 		add(generateCombo(people, "Person Guess"));

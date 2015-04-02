@@ -23,5 +23,10 @@ public class HumanPlayer extends Player {
 		return null;
 	}
 
+	@Override
+	String getType() {
+		return "Human";
+	}
+
 	
 }

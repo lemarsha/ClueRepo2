@@ -1,0 +1,71 @@
+commit 0b08deded2012e1fa2da3013a79b0e83b6a528e4
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:59:37 2015 -0600
+
+    added jframe construction to loadconfigfiles method
+
+
+
+commit a526328b2e21563ef13db219c4ea1d61af2c9de7
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:59:04 2015 -0600
+
+    cleaned up main method
+
+
+
+commit f4f37e73c30874145df851c43765e49d78fff7a6
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:52:50 2015 -0600
+
+    updated methods to accomodate getters and setters in solution
+
+
+
+commit 19766bab74cca0a9c6d21aaa2f8b973edfda531f
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:51:28 2015 -0600
+
+    added getters and setters to solution
+
+
+
+commit cbac8ab53486d7631a59e22113145973020ccd29
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:49:22 2015 -0600
+
+    made field vars in solution private
+
+
+
+commit 2a141f785440c8e1aad9ad42a66014a0f142c714
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:37:36 2015 -0600
+
+    took adjacency constructor out of loop
+
+
+
+commit b50f0cd9596e9f1e1a133b6721ee646544c44589
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:34:03 2015 -0600
+
+    took roomcell constructor out of loop
+
+
+
+commit 145989734ccb73f94bd03a7b324077b65e7dcc55
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:32:44 2015 -0600
+
+    took walkcell constructor out of loop
+
+
+
+commit 910dab93b272513b3e6fe3143fb1efe2e18b716b
+Author: Leah Colin Marshall <lemarsha@mines.edu>
+Date:   Sun Mar 29 18:28:21 2015 -0600
+
+    first commit with new partners
+
+commit 

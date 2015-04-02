@@ -11,7 +11,7 @@ public abstract class Player {
 	private String color;
 	private BoardCell location;
 	private static final int PEOPLE_DIMEN = 25;
-	protected int locX, locY;
+	//protected int locX, locY;
 	protected ArrayList<Card> hand = new ArrayList<Card>();
 	
 	
@@ -20,11 +20,13 @@ public abstract class Player {
 		this.name = name;
 		this.color = color;
 		
-		locX = Integer.parseInt(x);
-		locY = Integer.parseInt(y); 
+		int locX = Integer.parseInt(x);
+		int locY = Integer.parseInt(y); 
 		BoardCell bd = new WalkwayCell(locX,locY, "W");
 		this.location = bd;
 	}
+	
+	abstract String getType();
 	
 	public Player() {
 		super();
@@ -50,8 +52,9 @@ public abstract class Player {
 		return location;
 	}
 
-	public BoardCell setLocation(String x, String y) {
-		return null;
+	public void setLocation(int x, int y) {
+		location.setRow(x);
+		location.setColumn(y);
 	}
 
 	public ArrayList<Card> getHand() {
@@ -100,9 +103,9 @@ public abstract class Player {
 		else if(color.equals("white")) g.setColor(Color.white);
 		else if(color.equals("yellow")) g.setColor(Color.orange);
 		else if(color.equals("purple")) g.setColor(Color.MAGENTA);
-		g.fillOval(locY*PEOPLE_DIMEN, locX*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
+		g.fillOval(location.getColumn()*PEOPLE_DIMEN, location.getRow()*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
 		g.setColor(Color.BLACK);
-		g.drawOval(locY*PEOPLE_DIMEN, locX*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
+		g.drawOval(location.getColumn()*PEOPLE_DIMEN, location.getRow()*PEOPLE_DIMEN, PEOPLE_DIMEN,PEOPLE_DIMEN);
 	}
 	
 	

@@ -2,13 +2,18 @@ package clueGame;
 
 import java.util.*;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import clueGame.BoardCell;
 
-public class Board extends JPanel{
+public class Board extends JPanel implements MouseListener{
 
 	private Map<Character,String> rooms;
 	private int numRows, numColumns;
@@ -19,11 +24,13 @@ public class Board extends JPanel{
 	private Set<BoardCell> target_cells;
 	private Set<BoardCell> visited;
 	private ArrayList<Player> players;
+	private boolean hasMoved = true;
 
 	//constructor
 	public Board(String layoutFile, String legendFile) {
 		this.legendFile = legendFile;
 		this.layoutFile = layoutFile;
+		addMouseListener(this);
 	}
 
 	//generates the map of the legend, tests for correct formats, and creates a grid of all the board cells
@@ -153,16 +160,16 @@ public class Board extends JPanel{
 	public int getNumColumns() {
 		return numColumns;
 	}
-	
+
 	//gets the room cell at the specified grid location
-		public RoomCell getRoomCellAt(int row, int col) {
-			BoardCell cell = grid[row][col];
-			if (cell.isRoom()) {
-				return (RoomCell) cell;
-			}
-			return null;
+	public RoomCell getRoomCellAt(int row, int col) {
+		BoardCell cell = grid[row][col];
+		if (cell.isRoom()) {
+			return (RoomCell) cell;
 		}
-	
+		return null;
+	}
+
 	//returns the board cell at the specified grid location
 	public BoardCell getCellAt(int row, int col) {
 		return grid[row][col];
@@ -235,7 +242,7 @@ public class Board extends JPanel{
 		visited.add(grid[row][col]);
 		findAllTargets(grid[row][col], numSteps);
 	}
-	
+
 	//find all the targets a roll can move you too
 	public void findAllTargets(BoardCell thisCell, int numSteps) {
 		LinkedList<BoardCell> current_adj_cells = new LinkedList<BoardCell>();
@@ -252,11 +259,15 @@ public class Board extends JPanel{
 			}
 		}
 	}
-	
+
 	public Set<BoardCell> getTargets(){
 		return target_cells;
 	}
-	
+
+	public void clearTargets() {
+		target_cells = null;
+	}
+
 	public void setBoardPlayers( ArrayList<Player> players) {
 		this.players = players;
 	}
@@ -271,7 +282,50 @@ public class Board extends JPanel{
 		for(Player p : players){
 			p.draw(g,this);
 		}
-		
+		if (target_cells!=null) {
+			for(BoardCell b: target_cells) {
+				b.drawTargets(g, this);
+			}
+		}
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		BoardCell bc = null;
+		for (BoardCell b: target_cells) {
+			if (b.containsClick(e.getX(), e.getY())) {
+				bc = b;
+				break;
+			}
+		}
+		if (bc != null) {
+			players.get(0).setLocation(bc.getRow(), bc.getColumn());
+			target_cells.clear();
+			repaint();
+			hasMoved = true;
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "THATS NOT A TARGET FUCKFACE", 
+					"Error", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	public boolean hasMoved() {
+		return hasMoved;
+	}
+	
+	public void setHasMoved(boolean hasMoved) {
+		this.hasMoved = hasMoved;
+	}
+	
+	public void mouseEntered(MouseEvent arg0){}
+	public void mouseExited(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent arg0) {}
+
+	public Point getClick(MouseEvent e) {
+		return new Point(e.getX(),e.getY());
+	}
+
 }
 

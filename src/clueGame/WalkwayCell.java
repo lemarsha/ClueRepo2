@@ -70,4 +70,5 @@ public class WalkwayCell extends BoardCell{
 		g.setColor(Color.BLACK);
 		g.drawRect(column*ROOM_DIMEN,row*ROOM_DIMEN,ROOM_DIMEN,ROOM_DIMEN);
 	}
+	
 }
