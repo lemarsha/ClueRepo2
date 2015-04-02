@@ -63,7 +63,7 @@ public class GameSetupTests {
 	@Test
 	public void loadCards() {
 		//Checks that all cards are read in
-		assertEquals(21, game.getDeckSize());
+		assertEquals(21, game.getTestDeck().size());
 		
 		//Checks proper totals of cards are read
 		assertEquals(6, game.getPlayersTot());
@@ -71,7 +71,7 @@ public class GameSetupTests {
 		assertEquals(9, game.getRoomTot());
 		
 		//Make sure it contains an element we know it true
-		ArrayList<Card> decky = game.getDeck();
+		ArrayList<Card> decky = game.getTestDeck();
 		Card c = new Card("Tupac", Card.cardType.PERSON);
 		assertTrue(decky.contains(c));
 		c = new Card("Hall", Card.cardType.ROOM);
@@ -85,7 +85,6 @@ public class GameSetupTests {
 	@Test
 	public void dealTest() {
 		//Checks the size of remaining deck after the shuffle
-		game.deal();
 		assertEquals(0, game.getDeckSize());
 		
 		//Makes sure size of player hands are relatively the same

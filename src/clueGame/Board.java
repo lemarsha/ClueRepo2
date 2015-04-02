@@ -305,7 +305,7 @@ public class Board extends JPanel implements MouseListener{
 			hasMoved = true;
 		}
 		else {
-			JOptionPane.showMessageDialog(this, "THATS NOT A TARGET FUCKFACE", 
+			JOptionPane.showMessageDialog(this, "That is not a target :(", 
 					"Error", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}

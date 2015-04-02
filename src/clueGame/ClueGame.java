@@ -40,6 +40,7 @@ public class ClueGame extends JFrame{
 	private ArrayList<Card> proof = new ArrayList<Card>();
 	private ArrayList<Card> seenCards = new ArrayList<Card>();
 	private ArrayList<Card> deck = new ArrayList<Card>();
+	private ArrayList<Card> testDeck = new ArrayList<Card>();
 	private ArrayList<Card> people = new ArrayList<Card>();
 	private ArrayList<Card> weapons = new ArrayList<Card>();
 	private ArrayList<Card> locations = new ArrayList<Card>();
@@ -95,7 +96,7 @@ public class ClueGame extends JFrame{
 
 	public void nextPlayer() {
 		if (b.hasMoved() ==false) {
-			JOptionPane.showMessageDialog(this, "MOVE YOU FUCKING IDIOT", 
+			JOptionPane.showMessageDialog(this, "You must select a target", 
 					"Error", JOptionPane.INFORMATION_MESSAGE);
 		} else {
 
@@ -166,7 +167,14 @@ public class ClueGame extends JFrame{
 			counter++;
 		}
 		loadPlayers(sarr);
+		for (Card c: deck) {
+			testDeck.add(c);
+		}
 		deal();
+	}
+	
+	public ArrayList<Card> getTestDeck() {
+		return testDeck;
 	}
 
 	public void loadPlayers(String[] sarr) {
