@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class ComputerPlayer extends Player {
 	
-	private RoomCell lastRoom = new RoomCell(9,7,"R");
+	private char lastRoomVisited;
 
 	public ComputerPlayer(String name, String color, String x, String y) {
 		super(name, color, x,y);
@@ -27,33 +27,27 @@ public class ComputerPlayer extends Player {
 	@Override
 	public BoardCell pickLocation(Set<BoardCell> targs){
 		
-		
-		for (Iterator<BoardCell> iterator= targs.iterator(); iterator.hasNext();){
-			BoardCell cells = iterator.next();
-			if(cells.equals(lastRoom)) {
-				iterator.remove();
+		ArrayList<BoardCell> targetArray= new ArrayList<BoardCell>();
+		for (BoardCell b: targs) {
+			if (b.isDoorway() && b.getInitial() != lastRoomVisited) {
+				lastRoomVisited = b.getInitial();
+				return b;
 			}
-			else if(cells.isRoom()) {
-				//lastRoom = (RoomCell)cells;
-				return cells;
-			}
+			targetArray.add(b);
 		}
+		Random r = new Random();
+		int rannum = r.nextInt(targetArray.size());
+		return targetArray.get(rannum);
 		
 		
-		Random rng = new Random();
-		int i = rng.nextInt(targs.size());
-		int item = 0;
-		for(BoardCell cells : targs){
-			if(i == item) return cells;
-			item++;
-		}
-
-		return null;
 	}
 
 	@Override
-	public ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public Solution makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
+		
+		Solution s = new Solution();
+		s.setPlace(local.getName());
 		
 		ArrayList<Card> returnList = new ArrayList<Card>();
 		ArrayList<Card> peopleSelection = new ArrayList<Card>();
@@ -75,10 +69,13 @@ public class ComputerPlayer extends Player {
 		Random rng = new Random();
 		int i = rng.nextInt(peopleSelection.size());
 		returnList.add(peopleSelection.get(i));
+		s.setPerson(peopleSelection.get(i).getName());
+		
 		i = rng.nextInt(weaponSelection.size());
 		returnList.add(weaponSelection.get(i));
+		s.setWeapon(weaponSelection.get(i).getName());
 		
-		return returnList;
+		return s;
 	}
 	
 

@@ -25,6 +25,7 @@ public class Board extends JPanel implements MouseListener{
 	private Set<BoardCell> visited;
 	private ArrayList<Player> players;
 	private boolean hasMoved = true;
+	private MakeAGuess guessPanel;
 
 	//constructor
 	public Board(String layoutFile, String legendFile) {
@@ -271,6 +272,10 @@ public class Board extends JPanel implements MouseListener{
 	public void setBoardPlayers( ArrayList<Player> players) {
 		this.players = players;
 	}
+	
+	public void setGuessPanel(MakeAGuess guessPanel) {
+		this.guessPanel = guessPanel;
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -291,17 +296,29 @@ public class Board extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if (hasMoved) {
+			JOptionPane.showMessageDialog(this, "It is not your turn.", 
+					"Error", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
 		BoardCell bc = null;
-		for (BoardCell b: target_cells) {
-			if (b.containsClick(e.getX(), e.getY())) {
-				bc = b;
-				break;
+		if (target_cells!=null) {
+			for (BoardCell b: target_cells) {
+				if (b.containsClick(e.getX(), e.getY())) {
+					bc = b;
+					break;
+				}
 			}
 		}
+		
 		if (bc != null) {
 			players.get(0).setLocation(bc.getRow(), bc.getColumn());
 			target_cells.clear();
 			repaint();
+			if (bc.isDoorway()) {
+				guessPanel.updateGuessDisplay(rooms.get(bc.getInitial()));
+				guessPanel.setVisible(true);
+			}
 			hasMoved = true;
 		}
 		else {

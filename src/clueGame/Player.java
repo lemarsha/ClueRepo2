@@ -69,16 +69,16 @@ public abstract class Player {
 		hand.add(c);
 	}
 
-	public Card disproveSuggestion(Card person, Card weapon, Card place) {
+	public Card disproveSuggestion(String person, String weapon, String place) {
 		ArrayList<Card> picks = new ArrayList<Card>();
 		for(Card c : hand) {
-			if(c.equals(person)){
+			if(c.getName().equals(person)){
 				picks.add(c);
 			}
-			else if(c.equals(weapon)) {
+			else if(c.getName().equals(weapon)) {
 				picks.add(c);
 			}
-			else if(c.equals(place)) {
+			else if(c.getName().equals(place)) {
 				picks.add(c);
 			}
 		}
@@ -111,6 +111,6 @@ public abstract class Player {
 	
 	public abstract BoardCell pickLocation(Set<BoardCell> targs);
 	
-	public abstract ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public abstract Solution makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons);
 }

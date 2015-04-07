@@ -6,10 +6,12 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
@@ -22,25 +24,29 @@ public class ControlGUI extends JPanel {
 	private ClueGame game;
 	private JTextField diceRoll = new JTextField(10);
 	private JTextField playerName = new JTextField(10);
+	private JTextField guess = new JTextField(30);
+	private JTextField guessResult = new JTextField(10);
+	private MakeAnAccusation accusationPanel;
 
 	public ControlGUI(Board board, ClueGame game)
 	{
 		this.board = board;
 		this.game = game;
+		accusationPanel = new MakeAnAccusation(board,game);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setTitle("Clue Game");
 		setLayout(new GridLayout(1,2));
 		setSize(576, 100);
 		JPanel panel = PlayerPanel();
-		panel.setPreferredSize(new Dimension(700, 125));
+		panel.setPreferredSize(new Dimension(800, 125));
 		add(panel, BorderLayout.NORTH);
 
 		JPanel p = new JPanel();
 		panel = createDicePanel(game.getRoll());
 		p.add(panel, BorderLayout.WEST);
-		panel = createGuessPanel();
-		p.add(panel, BorderLayout.CENTER);
 		panel = createGuessResultPanel();
+		p.add(panel, BorderLayout.CENTER);
+		panel = createGuessPanel();
 		p.add(panel, BorderLayout.EAST);
 		add(p);
 	}
@@ -74,10 +80,9 @@ public class ControlGUI extends JPanel {
 	private JPanel createGuessPanel() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Guess");
-		name = new JTextField(10);
-		name.setEditable(false);
+		guess.setEditable(false);
 		panel.add(label);
-		panel.add(name);
+		panel.add(guess);
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		return panel;
 	}
@@ -85,10 +90,9 @@ public class ControlGUI extends JPanel {
 	private JPanel createGuessResultPanel() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Response");
-		name = new JTextField(10);
-		name.setEditable(false);
+		guessResult.setEditable(false);
 		panel.add(label);
-		panel.add(name);
+		panel.add(guessResult);
 		panel.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
 		return panel;
 	}
@@ -101,9 +105,28 @@ public class ControlGUI extends JPanel {
 		this.playerName.setText(playerName);
 	}
 	
+	public void setGuess(String guess) {
+		this.guess.setText(guess);
+	}
+	
+	public void setGuessResult(String guessResult) {
+		this.guessResult.setText(guessResult);
+	}
+	
 	public void updateDisplay(int roll, String playerName) {
 		setRoll(roll);
 		setPlayerName(playerName);
+	}
+	
+	public void updateGuessDisplay(Solution guess, Card disproved) {
+		String guessedCards = guess.getPerson()+ " "+guess.getPlace() + " "+guess.getWeapon();
+		setGuess(guessedCards);
+		if (disproved == null) {
+			setGuessResult("Can't be disproved");
+		}
+		else {
+			setGuessResult(disproved.getName());
+		}
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -115,7 +138,13 @@ public class ControlGUI extends JPanel {
 
 			}
 			else if (e.getSource() == makeAccusation) {
-
+				if (!board.hasMoved()) {
+					accusationPanel.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(game, "NOT YOUR TURN" ,"Accusation Result", 
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+				
 			}
 
 		}

@@ -17,7 +17,7 @@ public class HumanPlayer extends Player {
 	}
 
 	@Override
-	public ArrayList<Card> makeSuggestion(Card local, ArrayList<Card> allSeen,
+	public Solution makeSuggestion(Card local, ArrayList<Card> allSeen,
 			ArrayList<Card> allPeople, ArrayList<Card> allWeapons) {
 		// TODO Auto-generated method stub
 		return null;

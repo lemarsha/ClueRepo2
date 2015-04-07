@@ -116,17 +116,14 @@ public class GameActionTests {
 			// Run the test 100 times
 			for (int i=0; i<100; i++) {
 				BoardCell selected = player.pickLocation(board.getTargets());
-				if (selected == board.getCellAt(3,0))
+				if (selected == board.getCellAt(3,0)){
 					loc_12_0Tot++;
-				else
-					fail("Invalid target selected");
+				}
 			}
-			// Ensure we have 100 total selections (fail should also ensure)
-			assertEquals(100, loc_12_0Tot + loc_14_2Tot + loc_15_1Tot);
-			// Ensure that only the door was selected
-			assertTrue(loc_12_0Tot == 100);
-			assertTrue(loc_14_2Tot == 0);
-			assertTrue(loc_15_1Tot == 0);
+			// Ensure we have at least 10 total selections (fail should also ensure)
+			assertTrue(loc_12_0Tot >10);
+			// Ensure that the door wasn't selected every time since it's previously been entered
+			assertTrue(loc_12_0Tot < 100);
 			
 			
 			
@@ -158,12 +155,12 @@ public class GameActionTests {
 			}
 			// Ensure we have 100 total selections (fail should also ensure)
 			assertEquals(100, loc_12_0Tot + loc_14_2Tot + loc_15_1Tot+loc_4_1Tot+loc_5_1Tot);
-			// Ensure each target was selected more than once, and the door never was
+			// Ensure each target was selected more than once, and the door only sometimes was
 			assertTrue(loc_12_0Tot > 2);
 			assertTrue(loc_14_2Tot > 2);
 			assertTrue(loc_15_1Tot > 2);
 			assertTrue(loc_4_1Tot > 2);
-			assertTrue(loc_5_1Tot==0);
+			assertTrue(loc_5_1Tot>0);
 	}	
 	
 	@Test
@@ -178,16 +175,16 @@ public class GameActionTests {
 		playa.addToHand(l2);
 		
 		//No cards are in common
-		assertTrue(null == playa.disproveSuggestion(person, weapon, place));
+		assertTrue(null == playa.disproveSuggestion(person.getName(), weapon.getName(), place.getName()));
 		
 		//Person is in common
-		assertTrue(p1.equals(playa.disproveSuggestion(p1, weapon, place)));
+		assertTrue(p1.equals(playa.disproveSuggestion(p1.getName(), weapon.getName(), place.getName())));
 		
 		//Weapom is in common
-		assertTrue(w1.equals(playa.disproveSuggestion(person, w1, place)));
+		assertTrue(w1.equals(playa.disproveSuggestion(person.getName(), w1.getName(), place.getName())));
 		
 		//Person is in common
-		assertTrue(l1.equals(playa.disproveSuggestion(person, weapon, l1)));
+		assertTrue(l1.equals(playa.disproveSuggestion(person.getName(), weapon.getName(), l1.getName())));
 	}
 	
 	@Test
@@ -204,7 +201,7 @@ public class GameActionTests {
 		
 		for(int i=0;i<100;i++) {
 			Card check= new Card(); 
-			check=playa.disproveSuggestion(p1, w1, l1);
+			check=playa.disproveSuggestion(p1.getName(), w1.getName(), l1.getName());
 			
 			if(p1.equals(check)) {
 					plays++;
@@ -247,22 +244,22 @@ public class GameActionTests {
 		game.setPlayers(playaList);
 		
 		//Player suggestion, only he can disprove
-		game.handleSuggestion(person, place, weapon, playaList.get(0));
+		game.handleSuggestion(person.getName(), place.getName(), weapon.getName(), playaList.get(0));
 		ArrayList<Card> testList = game.getProof();
 		assertTrue(testList.size() == 0);
 		
 		//No Player can disprove
-		game.handleSuggestion(p4, l4, w4, playaList.get(0));
+		game.handleSuggestion(p4.getName(), l4.getName(), w4.getName(), playaList.get(0));
 		testList = game.getProof();
 		assertTrue(testList.size() == 0);
 		
 		//Only Human can disprove and is the farthest away
-		game.handleSuggestion(p3, l4, w4, playaList.get(0));
+		game.handleSuggestion(p3.getName(), l4.getName(), w4.getName(), playaList.get(0));
 		testList = game.getProof();
 		assertTrue(testList.contains(p3));
 		
 		//Testing the order of the suggestion check
-		game.handleSuggestion(p1, l2, w4, playaList.get(0));
+		game.handleSuggestion(p1.getName(), l2.getName(), w4.getName(), playaList.get(0));
 		testList = game.getProof();
 		assertTrue(p1.equals(testList.get(0)));
 		assertTrue(l2.equals(testList.get(1)));
@@ -291,11 +288,10 @@ public class GameActionTests {
 		player.addToHand(p3);
 		player.addToHand(w3);
 		
-		ArrayList<Card> ans = player.makeSuggestion(l1, testListAll, testListPerson,
-				testListWeapons);
-		assertTrue(ans.contains(l1));
-		assertTrue(ans.contains(p4));
-		assertTrue(ans.contains(w4));
+		Solution ans = player.makeSuggestion(l1, testListAll, testListPerson, testListWeapons);
+		assertTrue(ans.getPlace().equals(l1.getName()));
+		assertTrue(ans.getPerson().equals(p4.getName()));
+		assertTrue(ans.getWeapon().equals(w4.getName()));
 		
 		
 		//Testing that the computer can make a guess from a list
@@ -309,9 +305,9 @@ public class GameActionTests {
 			 ans = player.makeSuggestion(l1, testListAll, testListPerson,
 					testListWeapons);
 			 
-			 if(ans.contains(person)) pc++;
-			 else if(ans.contains(p1)) p1c++;
-			 else if(ans.contains(p4))p4c++;
+			 if(ans.getPerson().equals(person.getName())) pc++;
+			 else if(ans.getPerson().equals(p1.getName())) p1c++;
+			 else if(ans.getPerson().equals(p4.getName()))p4c++;
 			 else
 				 fail("FAIL");
 		}

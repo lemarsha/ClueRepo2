@@ -28,7 +28,7 @@ public class TestsPart1 {
 	
 	@BeforeClass
 	public static void setUp() {
-		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt", "characters.txt");
+		ClueGame game = new ClueGame("ClueLayout.csv","ClueLegend.txt", "cards.txt");
 		game.loadConfigFiles();
 		board = game.getBoard();
 	}
@@ -90,19 +90,27 @@ public class TestsPart1 {
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadColumns() throws Exception {
-		ClueGame badColGame = new ClueGame("ClueLayoutBadColumns.csv","ClueLegendCR.txt", "characters.txt");
-		badColGame.loadConfigFiles();
+		/*
+		ClueGame badColGame = new ClueGame("ClueLayoutBadColumns.csv","ClueLegendCR.txt", "cards.txt");
+		//badColGame.loadConfigFiles();
 		Board badColBoard = badColGame.getBoard();
+		badColBoard.loadBoardConfig();
+		*/
+		Board badColBoard = new Board("ClueLayoutBadColumns.csv", "ClueLegendCR.txt");
 		badColBoard.loadBoardConfig();
 		
 	}
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoom() throws Exception {
-		ClueGame badRoomGame = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt", "characters.txt");
+		/*
+		ClueGame badRoomGame = new ClueGame("ClueLayoutBadRoom.csv", "ClueLegendCR.txt", "cards.txt");
 		badRoomGame.loadConfigFiles();
 		Board badRoomBoard = badRoomGame.getBoard();
 		badRoomBoard.loadBoardConfig();
+		*/
+		Board badColBoard = new Board("ClueLayoutBadRoom.csv", "ClueLegendCR.txt");
+		badColBoard.loadBoardConfig();
 	}
 	
 	@Test
@@ -123,10 +131,14 @@ public class TestsPart1 {
 	
 	@Test (expected = BadConfigFormatException.class)
 	public void testBadRoomFormat() throws Exception {
-		ClueGame badLegendGame = new ClueGame("ClueLayoutCR.csv","ClueLegendBadFormat.txt", "characters.txt");
+		/*
+		ClueGame badLegendGame = new ClueGame("ClueLayoutCR.csv","ClueLegendBadFormat.txt", "cards.txt");
 		badLegendGame.loadConfigFiles();
 		Board badLegendBoard = badLegendGame.getBoard();
 		badLegendBoard.loadBoardConfig();
+		*/
+		Board badColBoard = new Board("ClueLayoutCR.csv", "ClueLegendBadFormat.txt");
+		badColBoard.loadBoardConfig();
 	}
 	
 	

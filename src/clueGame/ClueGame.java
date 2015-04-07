@@ -53,6 +53,10 @@ public class ClueGame extends JFrame{
 	private Player currentPlayer;
 	private int roll;
 	private ControlGUI controlPanel;
+	private boolean accusationFlag = false;
+	private Solution solution = new Solution();
+	private MakeAGuess guessPanel;
+	private MakeAnAccusation accusationPanel;
 
 	public ClueGame(String layoutFile, String legendFile, String cardFile) {
 		super();
@@ -87,11 +91,14 @@ public class ClueGame extends JFrame{
 		//displays control panel
 		controlPanel = new ControlGUI(board,this);
 		add(controlPanel, BorderLayout.SOUTH);
-		setSize(750,750);
+		setSize(800,750);
 		setVisible(true);
 		JOptionPane.showMessageDialog(this, "You are Tupac, press Next Player to begin play", 
 				"Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
-
+		guessPanel = new MakeAGuess(b, this, "Conservatory");
+		b.setGuessPanel(guessPanel);
+		accusationPanel = new MakeAnAccusation(b, this);
+		
 	}
 
 	public void nextPlayer() {
@@ -99,18 +106,54 @@ public class ClueGame extends JFrame{
 			JOptionPane.showMessageDialog(this, "You must select a target", 
 					"Error", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-
+			
 			rollDice();
 			controlPanel.updateDisplay(roll,currentPlayer.getName());
 			int row = currentPlayer.getLocation().getRow();
 			int col = currentPlayer.getLocation().getColumn();
 			BoardCell moveTo = null;
 			if (currentPlayer.getType().equals("Computer")) {
-				b.calcTargets(row, col, roll);
-				moveTo = currentPlayer.pickLocation(b.getTargets());
-				currentPlayer.setLocation(moveTo.getRow(), moveTo.getColumn());
-				b.clearTargets();
-				repaint();
+				if ((accusationFlag == true)) {
+					Solution s = new Solution();
+					s.setPlace(solution.getPlace());
+					s.setPerson(solution.getPerson());
+					s.setWeapon(solution.getWeapon());
+					boolean win = checkAccusation(s);
+					if (win == true) {
+						JOptionPane.showMessageDialog(this, "The computer just won with "+s.getPerson()+" "+ 
+								s.getPlace()+" "+s.getWeapon(),"Accusation Result", JOptionPane.INFORMATION_MESSAGE);
+					}else {
+						JOptionPane.showMessageDialog(this, "Computer accusation failed: "+s.getPerson()+" "+ 
+								s.getPlace()+" "+s.getWeapon(),"Accusation Result", JOptionPane.INFORMATION_MESSAGE);
+					}
+					accusationFlag = false;
+				}
+				else {
+					b.calcTargets(row, col, roll);
+					moveTo = currentPlayer.pickLocation(b.getTargets());
+					if (moveTo.isDoorway()) {
+						Solution guess = currentPlayer.makeSuggestion(new Card(rooms.get(moveTo.getInitial()),cardType.ROOM), 
+								seenCards, people, weapons);
+						String accusedPerson = guess.getPerson();
+						for (Player p: players) {
+							if (p.getName().equals(accusedPerson)) {
+								p.setLocation(moveTo.getRow(), moveTo.getColumn());
+								break;
+							}
+							
+						}
+						Card c = handleSuggestion(guess.getPerson(),guess.getPlace(),guess.getWeapon(), currentPlayer);
+						if (c == null) {
+							accusationFlag = true;
+							solution = guess;
+						}
+						controlPanel.updateGuessDisplay(guess, c);
+					}
+					currentPlayer.setLocation(moveTo.getRow(), moveTo.getColumn());
+					
+					b.clearTargets();
+					repaint();
+				}
 			}
 			else if (currentPlayer.getType().equals("Human")) {
 				b.setHasMoved(false);
@@ -120,7 +163,6 @@ public class ClueGame extends JFrame{
 			currentPlayerIndex++;
 			currentPlayer = players.get(currentPlayerIndex%6);
 		}
-
 		
 	}
 
@@ -131,6 +173,14 @@ public class ClueGame extends JFrame{
 
 	public int getRoll() {
 		return roll;
+	}
+	
+	public ControlGUI getControlGUI() {
+		return controlPanel;
+	}
+	
+	public MakeAnAccusation getAccusationPanel() {
+		return accusationPanel;
 	}
 
 	public void loadCards() {
@@ -216,7 +266,7 @@ public class ClueGame extends JFrame{
 			// TODO Auto-generated catch block
 			e.getLocalizedMessage();
 		}
-		b.getRooms();
+		rooms = b.getRooms();
 	}
 
 	public Board getBoard() {
@@ -239,11 +289,11 @@ public class ClueGame extends JFrame{
 		i = rng.nextInt(6) + 8;
 		c = deck.get(i);
 		deck.remove(i);
-		victory.setPerson(c.getName());
+		victory.setWeapon(c.getName());
 		i = rng.nextInt(6)+13;
 		c = deck.get(i);
 		deck.remove(i);
-		victory.setWeapon(c.getName());
+		victory.setPerson(c.getName());
 
 
 		int playerGetCard=0;
@@ -317,23 +367,28 @@ public class ClueGame extends JFrame{
 		this.players = players;
 	}
 
-	public void handleSuggestion(Card perp, Card loc, Card wep, Player accplaya){
+	public Card handleSuggestion(String perp, String loc, String wep, Player accplaya){
 		proof.clear();
 		Card c = new Card();
 		for(int i =0; i< players.size(); i ++) {
 			Player p = players.get(i);
-			if(!p.getName().equals(accplaya.getName())){
+			if(!p.getName().equals(accplaya.getName())) {
 				c = p.disproveSuggestion(perp, wep, loc);
 				if(!(c==null)){
 					proof.add(c);
-					if(!(c.getcardType() == Card.cardType.ROOM))
-						seenCards.add(c);
 				}
 			}
 		}
+		if (proof!=null && proof.size()>0) {
+			seenCards.add(proof.get(0));
+			return proof.get(0);
+			
+		}
+		return null;
 	}
 
 	public boolean checkAccusation(Solution solut) {
+	
 		if(solut.getPerson().equals(victory.getPerson()) && solut.getPlace().equals(victory.getPlace())
 				&& solut.getWeapon().equals(victory.getWeapon())) return true;
 
